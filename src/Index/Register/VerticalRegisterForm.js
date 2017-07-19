@@ -29,7 +29,7 @@ class VerticalRegisterForm_ extends React.Component {
             type : 'POST',
             contentType: 'application/json',
             data : JSON.stringify({name : values.name,
-                                   phone : values.phone,
+                                   username : values.username,
                                    password : values.password,
                                    inputCode : values.inputCode}),
             dataType : 'json',
@@ -119,7 +119,7 @@ class VerticalRegisterForm_ extends React.Component {
 
       <Card className="index-card" bodyStyle={{ padding: 0 }} >
         <div className="index-card-welcome">
-          <span>会员注册</span>
+          <span>员工注册</span>
         </div>
         <Form onSubmit={this.handleRegister} className="login-form">
           <FormItem {...formItemLayoutWithoutLabel} hasFeedback={true}>
@@ -129,9 +129,9 @@ class VerticalRegisterForm_ extends React.Component {
               )}
           </FormItem>
           <FormItem {...formItemLayoutWithoutLabel} hasFeedback={true}>
-              {getFieldDecorator('phone', { rules: [{ required: true, message: '请输入手机号' },{pattern: REGEX.PHONE, message:'请输入合法手机号'}],
+              {getFieldDecorator('username', { rules: [{ required: true, message: '请输入用户名' }],
               })(
-              <Input prefix={<Icon type="phone" style={{ fontSize: 13 }} />} placeholder="手机" />
+              <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
               )}
           </FormItem>
           <FormItem {...formItemLayoutWithoutLabel} hasFeedback={true}>
@@ -151,14 +151,8 @@ class VerticalRegisterForm_ extends React.Component {
 
           <FormItem {...formItemLayoutWithoutLabel}>
               {getFieldDecorator('inputCode')(
-              <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="验证码" style={{width:'55%', float:'left'}}/>
+              <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="验证码"/>
               )}
-              <Button disabled={this.state.isSendSmsBtnDisabled}
-                      onClick={this.handleSendSms}
-                      className="login-form-button"
-                      style={{width:'43%', float:'right'}}>
-                  {this.state.sendSmsBtnStr}
-              </Button>
           </FormItem>
 
 
@@ -166,7 +160,7 @@ class VerticalRegisterForm_ extends React.Component {
               <Button type="primary" htmlType="submit" className="login-form-button" style={{width:'100%'}}>
                   注&nbsp;&nbsp;册
               </Button>
-              <Link to={ROUTE.MEMBER_LOGIN.URL} style={{float:'right'}}>已有账号?</Link>
+              <Link to={ROUTE.LOGIN.URL} style={{float:'right'}}>已有账号?</Link>
           </FormItem>
         </Form>
       </Card>

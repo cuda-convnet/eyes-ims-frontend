@@ -21,10 +21,10 @@
 
 .index-header-logo {
   height: 32px;
-  width: 120px;
+  width: 210px;
   float:left;
   background: url('/logo_text.png') no-repeat;
-  background-size: 110px;
+  background-size: 200px;
   border-radius: 6px;
   margin: 16px;
   cursor: pointer;

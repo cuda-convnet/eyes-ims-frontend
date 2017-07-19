@@ -8,7 +8,7 @@ const FormItem = Form.Item;
 
 
 //验证手机号表单
-class ValidatePhoneForm_ extends React.Component {
+class ValidateUsernameForm_ extends React.Component {
 
   state = {
     isSendSmsBtnDisabled: false,
@@ -70,23 +70,20 @@ class ValidatePhoneForm_ extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form>
-        <FormItem {...formItemLayout} label="手机" hasFeedback={true}>
-            {getFieldDecorator('phone', {rules: [{ required: true, message: '请输入手机号' },{pattern: REGEX.PHONE, message:'请输入合法手机号'}],
+        <FormItem {...formItemLayout} label="用户名" hasFeedback={true}>
+            {getFieldDecorator('username', {rules: [{ required: true, message: '请输入用户名' }],
             })(
             <Input />
             )}
         </FormItem>
-        <FormItem {...formItemLayout} label="验证码">
+        <FormItem {...formItemLayout} label="验证码" hasFeedback={true}>
             {getFieldDecorator('inputCode', { rules: [{ required: true, message: '请输入验证码' }]})(
-            <Input style={{width:'37%'}}/>
+            <Input />
             )}
-            <Button disabled={this.state.isSendSmsBtnDisabled} onClick={this.handleSendSms} className="sendsms-form-button">
-                <span>{this.state.sendSmsBtnStr}</span>
-            </Button>
         </FormItem>
       </Form>
     );
   }
 }
-const ValidatePhoneForm = Form.create()(ValidatePhoneForm_);
-export default ValidatePhoneForm;
+const ValidateUsernameForm = Form.create()(ValidateUsernameForm_);
+export default ValidateUsernameForm;

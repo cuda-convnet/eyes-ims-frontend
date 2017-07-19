@@ -5,7 +5,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 //用户编辑对话框的表单
-class MemberEditModal_ extends React.Component {
+class UserEditModal_ extends React.Component {
 
   render() {
 
@@ -14,25 +14,26 @@ class MemberEditModal_ extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
     return (
-      <Modal title="修改会员信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
+      <Modal title="修改员工信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
           <FormItem {...formItemLayout} label="姓名">
             {getFieldDecorator('name')(
             <Input disabled/>
             )}
           </FormItem>
+          <FormItem {...formItemLayout} label="用户名">
+            {getFieldDecorator('username')(
+            <Input disabled/>
+            )}
+          </FormItem>
           <FormItem {...formItemLayout} label="角色级别" hasFeedback={true}>
             {getFieldDecorator('role')(
               <Select>
-                <Option value={ROLE.MEMBER_1}>{ROLE.MEMBER_1}</Option>
-                <Option value={ROLE.MEMBER_2}>{ROLE.MEMBER_2}</Option>
-                <Option value={ROLE.MEMBER_3}>{ROLE.MEMBER_3}</Option>
+                <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
+                <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
+                <Option value={ROLE.EMPLOYEE_HANDLER}>{ROLE.EMPLOYEE_HANDLER}</Option>
+                <Option value={ROLE.EMPLOYEE_VISITOR}>{ROLE.EMPLOYEE_VISITOR}</Option>
               </Select>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="所属顾问" hasFeedback={true}>
-            {getFieldDecorator('adviserAndManager')(
-              <Cascader options={this.props.adviserAndManagerData} placeholder="" allowClear={false}/>
             )}
           </FormItem>
         </Form>
@@ -40,5 +41,5 @@ class MemberEditModal_ extends React.Component {
     );
   }
 }
-const MemberEditModal = Form.create()(MemberEditModal_);
-export default MemberEditModal;
+const UserEditModal = Form.create()(UserEditModal_);
+export default UserEditModal;

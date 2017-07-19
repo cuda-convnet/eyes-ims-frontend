@@ -3,7 +3,7 @@ import {ROUTE, SESSION, SERVER, RESULT} from './../../App/PublicConstant';
 import { Layout, Card, Steps, Button, message, Alert} from 'antd';
 import IndexHeader from './../IndexHeader.js';
 import IndexFooter from './../IndexFooter.js';
-import ValidatePhoneForm from './ValidatePhoneForm.js';
+import ValidateUsernameForm from './ValidateUsernameForm.js';
 import NewPasswordForm from './NewPasswordForm.js';
 import { browserHistory} from 'react-router';
 import $ from 'jquery';
@@ -26,9 +26,9 @@ class FindPassword extends React.Component {
   * 验证手机号
   */
 
-  validatePhone = () => {
+  validateUsername = () => {
 
-    this.refs.validatePhoneForm.validateFields(['phone', 'inputCode'], (err, values) => {
+    this.refs.validateUsernameForm.validateFields(['username', 'inputCode'], (err, values) => {
       if (!err) {
 
         console.log('验证用户手机号', values);
@@ -39,7 +39,7 @@ class FindPassword extends React.Component {
             type : 'POST',
             contentType: 'application/json',
             dataType : 'json',
-            data : JSON.stringify({phone: values.phone, inputCode: values.inputCode}),
+            data : JSON.stringify({username: values.username, inputCode: values.inputCode}),
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
               console.log(result);
@@ -94,7 +94,7 @@ class FindPassword extends React.Component {
                         clearInterval(timer);
 
                         //跳转到登录页面
-                        browserHistory.push(this.props.params.roleType === "member" ? ROUTE.MEMBER_LOGIN.URL : ROUTE.EMPLOYEE_LOGIN.URL);
+                        browserHistory.push(ROUTE.LOGIN.URL);
                     }
                 }, 1000);
 
@@ -119,9 +119,9 @@ class FindPassword extends React.Component {
 
     const currentStep = this.state.currentStep;
     switch(currentStep){
-      case 0:this.validatePhone();break;
+      case 0:this.validateUsername();break;
       case 1:this.submitPasswordChange();break;
-      default:browserHistory.push(this.props.params.roleType === "member" ? ROUTE.MEMBER_LOGIN.URL : ROUTE.EMPLOYEE_LOGIN.URL);break;
+      default:browserHistory.push(ROUTE.LOGIN.URL);break;
     }
   }
 
@@ -130,8 +130,8 @@ class FindPassword extends React.Component {
     //步骤数组
     const steps = [{
 
-      title: '验证手机号',
-      content: <ValidatePhoneForm ref="validatePhoneForm"/>,
+      title: '验证用户名',
+      content: <ValidateUsernameForm ref="validateUsernameForm"/>,
       }, {
         title: '设置新密码',
         content: <NewPasswordForm ref="newPasswordForm"/>,
@@ -171,7 +171,7 @@ class FindPassword extends React.Component {
              {
                this.state.currentStep === steps.length - 1
                &&
-               <Button style={{ marginLeft: 8 }} type="primary" size="large" onClick={() => browserHistory.push(this.props.params.roleType === "member" ? ROUTE.MEMBER_LOGIN.URL : ROUTE.EMPLOYEE_LOGIN.URL)}>马上登录</Button>
+               <Button style={{ marginLeft: 8 }} type="primary" size="large" onClick={() => browserHistory.push(ROUTE.LOGIN.URL)}>马上登录</Button>
              }
             </div>
           </Card>

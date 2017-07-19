@@ -16,13 +16,11 @@ class VerticalLoginForm_ extends React.Component {
       if (!err) {
         console.log('表单值: ', values);
 
-        //在这里用正则验证输入合法性!!
-        //const authUrl = this.props.roleType === "member" ? '/api/auth/login' : '/api/auth/login';
         $.ajax({
-            url : SERVER + '/api/auth/' + this.props.roleType + '/login',
+            url : SERVER + '/api/auth/login',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({phone : values.phone, password : values.password}),
+            data : JSON.stringify({username : values.username, password : values.password}),
             dataType : 'json',
             success : (result) => {
                 console.log(result);
@@ -70,11 +68,11 @@ class VerticalLoginForm_ extends React.Component {
       <Card className="index-card" bodyStyle={{ padding: 0 }} >
 
         <div className="index-card-welcome">
-          <span>{ this.props.roleType === "member" ? "会员登录" : "职员登录"}</span>
+          <span>员工登录</span>
         </div>
         <Form onSubmit={this.handleLogin} className="login-form">
           <FormItem {...formItemLayoutWithoutLabel} hasFeedback={true}>
-              {getFieldDecorator('phone', { rules: [{ required: true, message: '请输入用户名!' }],
+              {getFieldDecorator('username', { rules: [{ required: true, message: '请输入用户名!' }],
               })(
               <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
               )}
@@ -86,19 +84,13 @@ class VerticalLoginForm_ extends React.Component {
               <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
               )}
 
-              <Link to={ROUTE.FIND_PASSWORD.URL_PREFIX + "/" + this.props.roleType} className="find-password-text">忘记密码?</Link>
+              <Link to={ROUTE.FIND_PASSWORD.URL_PREFIX} className="find-password-text">忘记密码?</Link>
           </FormItem>
           <FormItem {...formItemLayoutWithoutLabel}>
               <Button type="primary" htmlType="submit" className="login-form-button" style={{width:'100%'}}>
                   登&nbsp;&nbsp;录
               </Button>
-              {
-                this.props.roleType === "member"
-                ?
-                <Link to={ROUTE.REGISTER.URL} style={{float:'right'}}>注册</Link>
-                :
-                null
-              }
+              <Link to={ROUTE.REGISTER.URL} style={{float:'right'}}>注册</Link>
           </FormItem>
         </Form>
       </Card>

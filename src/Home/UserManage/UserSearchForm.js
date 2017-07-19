@@ -4,19 +4,19 @@ import { Form, Row, Col, Input, Button, Select} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-class MemberSearchForm_ extends React.Component {
+class UserSearchForm_ extends React.Component {
   state = {
     expand: false,
   };
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.handleSearchMemberList(1);
+    this.props.handleSearchUserList(1);
   }
 
   handleReset = () => {
     this.props.form.resetFields();
-    this.props.handleSearchMemberList(1);
+    this.props.handleSearchUserList(1);
   }
 
   toggle = () => {
@@ -34,15 +34,15 @@ class MemberSearchForm_ extends React.Component {
         <Row gutter={40}>
           <Col span={8}>
             <FormItem>
-              {getFieldDecorator('memberNum')(
-                <Input placeholder="会员编号" />
+              {getFieldDecorator('name')(
+                <Input placeholder="姓名" />
               )}
             </FormItem>
           </Col>
           <Col span={8}>
             <FormItem>
-              {getFieldDecorator('name')(
-                <Input placeholder="姓名" />
+              {getFieldDecorator('username')(
+                <Input placeholder="用户名" />
               )}
             </FormItem>
           </Col>
@@ -53,9 +53,10 @@ class MemberSearchForm_ extends React.Component {
               })(
                 <Select>
                   <Option value="">全部</Option>
-                  <Option value={ROLE.MEMBER_1}>{ROLE.MEMBER_1}</Option>
-                  <Option value={ROLE.MEMBER_2}>{ROLE.MEMBER_2}</Option>
-                  <Option value={ROLE.MEMBER_3}>{ROLE.MEMBER_3}</Option>
+                  <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
+                  <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
+                  <Option value={ROLE.EMPLOYEE_HANDLER}>{ROLE.EMPLOYEE_HANDLER}</Option>
+                  <Option value={ROLE.EMPLOYEE_VISITOR}>{ROLE.EMPLOYEE_VISITOR}</Option>
                 </Select>
               )}
             </FormItem>
@@ -72,5 +73,5 @@ class MemberSearchForm_ extends React.Component {
   }
 }
 
-const MemberSearchForm = Form.create()(MemberSearchForm_);
-export default MemberSearchForm;
+const UserSearchForm = Form.create()(UserSearchForm_);
+export default UserSearchForm;

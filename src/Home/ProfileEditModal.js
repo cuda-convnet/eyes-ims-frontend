@@ -280,42 +280,6 @@ class ProfileEditModal_ extends React.Component {
               </FormItem>
             </Form>
           </TabPane>
-
-          <TabPane tab={<span><Icon type="phone" />手机更换</span>} key="3">
-            <Form onSubmit={this.submitPhoneChange}>
-              <FormItem {...formItemLayout} label="手机" hasFeedback={true}>
-                  {getFieldDecorator('phone', {rules: [{ required: true, message: '请输入手机号' },{pattern: REGEX.PHONE, message:'请输入合法手机号'}],
-                  })(
-                  <Input />
-                  )}
-              </FormItem>
-              <FormItem {...formItemLayout} label="验证码">
-                  {getFieldDecorator('inputCode', { rules: [{ required: true, message: '请输入验证码' }]})(
-                  <Input style={{width:'37%'}}/>
-                  )}
-                  <Button disabled={this.state.isSendSmsBtnDisabled} onClick={this.handleSendSms} className="sendsms-form-button">
-                      <span>{this.state.sendSmsBtnStr}</span>
-                  </Button>
-              </FormItem>
-              <FormItem {...formItemLayoutWithoutLabel}>
-                <Button type="primary" htmlType="submit" loading={this.state.submitPhoneChangeLoading}>更换</Button>
-              </FormItem>
-            </Form>
-          </TabPane>
-
-          {
-            isMember(sessionStorage.getItem(SESSION.ROLE))
-            ?
-            <TabPane tab={<span><Icon type="star-o" />会员信息</span>} key="4">
-              <Form >
-                  <FormItem {...formItemLayout} label="有效期至">
-                    <span>{formatDate(this.props.userInfo.valid)}</span>
-                  </FormItem>
-              </Form>
-            </TabPane>
-            :
-            null
-          }
         </Tabs>
       </Modal>
     );

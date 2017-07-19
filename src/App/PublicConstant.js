@@ -1,12 +1,13 @@
 
 //服务器地址
-//const SERVER = 'http://localhost:8080' //yaochenkun
-const SERVER = 'http://10.109.247.127:8080' //lab
-//const SERVER = 'http://47.92.91.99:8080' //alicloud
+const SERVER = 'http://localhost:8080' //yaochenkun
+//const SERVER = 'http://10.109.247.127:8080' //lab
+//const SERVER = 'http://47.92.91.99:8080' //tencentcloud
 
 //文件服务器地址
-const FILE_SERVER = 'http://10.109.247.127:8088' //lab
-//const FILE_SERVER = 'http://47.92.91.99:8088' //alicloud
+const FILE_SERVER = 'http://10.109.247.127:8088' //yaochenkun
+//const FILE_SERVER = 'http://10.109.247.127:8088' //lab
+//const FILE_SERVER = 'http://47.92.91.99:8088' //tencentcloud
 
 
 
@@ -16,6 +17,12 @@ const PAGE_SIZE = 10 //每页条数
 //角色
 const ROLE = {
   EMPLOYEE_ADMIN : '系统管理员',
+  EMPLOYEE_INPUTER : '数据录入员',
+  EMPLOYEE_HANDLER : '数据处理员',
+  EMPLOYEE_VISITOR : '数据阅览员',
+
+
+
   EMPLOYEE_FINANCER : '财务部员工',
   EMPLOYEE_ARCHIVER : '档案部员工',
   EMPLOYEE_ARCHIVE_MANAGER : '档案部主管',
@@ -31,14 +38,17 @@ const ROUTE = {
   ROOT: {URL: '/', PERMISSION: []},
   MAIN: {URL: '/main', PERMISSION: []},
   HELP: {URL: '/help', PERMISSION: []},
+  LOGIN: {URL: '/login', URL_PREFIX:'/login', PERMISSION: []},
   MEMBER_LOGIN: {URL: '/member_login', URL_PREFIX:'/member_login', PERMISSION: []},
   EMPLOYEE_LOGIN: {URL: '/employee_login', URL_PREFIX:'/employee_login', PERMISSION: []},
   REGISTER: {URL: '/register', URL_PREFIX:'/register', PERMISSION: []},
-  FIND_PASSWORD: {URL: '/find_password/:roleType', URL_PREFIX:'/find_password', PERMISSION: []},
+  FIND_PASSWORD: {URL: '/find_password', URL_PREFIX:'/find_password', PERMISSION: []},
 
   HOME: {URL:'/home/:menuKey', URL_PREFIX:'/home', MENU_KEY: '1', PERMISSION: []},
 
     WELCOME: {URL:'/home/:menuKey', URL_PREFIX:'/home', MENU_KEY: '1', PERMISSION: []},
+    USER_MANAGE: {URL:'/user_manage/:menuKey', URL_PREFIX:'/user_manage', MENU_KEY: '2', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
+
     EMPLOYEE_MANAGE: {URL:'/employee_manage/:menuKey', URL_PREFIX:'/employee_manage', MENU_KEY: '2', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_FINANCER, ROLE.EMPLOYEE_ARCHIVE_MANAGER, ROLE.EMPLOYEE_ADVISE_MANAGER]},
     MEMBER_MANAGE: {URL:'/member_manage/:menuKey', URL_PREFIX:'/member_manage', MENU_KEY: '6', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_FINANCER]},
 

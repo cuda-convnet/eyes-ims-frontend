@@ -6,7 +6,7 @@ import IndexHeader from './../IndexHeader.js';
 import IndexFooter from './../IndexFooter.js';
 const { Header, Content} = Layout;
 
-class MemberLogin extends React.Component {
+class Login extends React.Component {
   state = {
     collapsed: false,
     mode: 'inline',
@@ -30,7 +30,7 @@ class MemberLogin extends React.Component {
           <Layout>
             <IndexHeader />
             <Content className="index-content">
-                <VerticalLoginForm handleLoading={this.handleLoading} roleType="member"/>
+                <VerticalLoginForm handleLoading={this.handleLoading}/>
             </Content>
             <IndexFooter />
           </Layout>
@@ -39,4 +39,4 @@ class MemberLogin extends React.Component {
   }
 }
 
-export default MemberLogin;
+export default Login;
