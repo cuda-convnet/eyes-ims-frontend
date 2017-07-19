@@ -1,0 +1,23 @@
+.add-form {
+  margin-top: 20px;
+}
+
+.first-category-table {
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.operation-delete {
+  color:#f46e65;
+}
+
+.category-path {
+  margin-bottom: 20px;
+}
+
+
+.second-category-table, .third-category-table {
+  width: 60%;
+  margin: auto;
+}
