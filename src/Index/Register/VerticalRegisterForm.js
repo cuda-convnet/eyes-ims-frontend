@@ -119,7 +119,7 @@ class VerticalRegisterForm_ extends React.Component {
 
       <Card className="index-card" bodyStyle={{ padding: 0 }} >
         <div className="index-card-welcome">
-          <span>员工注册</span>
+          <span>用户注册</span>
         </div>
         <Form onSubmit={this.handleRegister} className="login-form">
           <FormItem {...formItemLayoutWithoutLabel} hasFeedback={true}>

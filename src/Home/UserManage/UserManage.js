@@ -13,10 +13,9 @@ class UserManage extends React.Component {
 
   state = {
 
-    //员工相关
+    //用户相关
     userData: [],
     userPager: {pageSize: PAGE_SIZE, total: 0},
-    adviserAndManagerData: [],
 
     userTableLoading: false,
     userEditModalVisible: false,
@@ -37,7 +36,7 @@ class UserManage extends React.Component {
 
         this.setState({ userTableLoading: true});
 
-        console.log('拉取第'+ pageNow + "页员工信息", values);
+        console.log('拉取第'+ pageNow + "页用户信息", values);
 
         $.ajax({
             url : SERVER + '/api/user/list',
@@ -76,10 +75,10 @@ class UserManage extends React.Component {
     });
   }
 
-  //删除员工
+  //删除用户
   handleDeleteUser(record) {
 
-    console.log('删除员工', record);
+    console.log('删除用户', record);
 
     $.ajax({
         url : SERVER + '/api/user/' + record.id,
@@ -104,10 +103,10 @@ class UserManage extends React.Component {
     });
   }
 
-  //查询userId员工信息显示到对话框内
+  //查询userId用户信息显示到对话框内
   requestUser = (userId) => {
 
-    console.log('查询员工', userId);
+    console.log('查询用户', userId);
 
     $.ajax({
         url : SERVER + '/api/user/' + userId,
@@ -140,7 +139,7 @@ class UserManage extends React.Component {
 
     this.setState({userEditModalVisible: true});
 
-    this.userId = record.id //保存当前正在编辑的员工用户名方便提交用
+    this.userId = record.id //保存当前正在编辑的用户用户名方便提交用
     this.requestUser(this.userId);
   }
 
@@ -149,10 +148,10 @@ class UserManage extends React.Component {
   //确认更新信息
   confirmUserEditModal = () => {
 
-    //请求修改员工
+    //请求修改用户
     this.refs.userEditForm.validateFields((err, values) => {
       if(!err) {
-        console.log('修改员工', values);
+        console.log('修改用户', values);
 
         //显示加载圈
         this.setState({ confirmUserLoading: true });
@@ -191,7 +190,7 @@ class UserManage extends React.Component {
 
 
   /**
-  * 添加员工对话框
+  * 添加用户对话框
   **/
   showUserAddModal = (record) => this.setState({ userAddModalVisible: true})
 
@@ -202,7 +201,7 @@ class UserManage extends React.Component {
     //请求修改职员
     this.refs.userAddForm.validateFields((err, values) => {
       if(!err) {
-        console.log('添加员工', values);
+        console.log('添加用户', values);
 
         //显示加载圈
         this.setState({ confirmUserAddModalLoading: true });
@@ -274,7 +273,7 @@ class UserManage extends React.Component {
             ?
             <span>
               <span className="ant-divider" />
-              <Popconfirm title="您确定要删除该员工吗?" onConfirm={() => this.handleDeleteUser(record)}>
+              <Popconfirm title="您确定要删除该用户吗?" onConfirm={() => this.handleDeleteUser(record)}>
                 <a className='user-table-delete'>删除</a>
               </Popconfirm>
             </span>
@@ -289,14 +288,14 @@ class UserManage extends React.Component {
         <div>
           <BackTop visibilityHeight="200"/>
           <Tabs defaultActiveKey={"1"}
-                tabBarExtraContent={<Button type="primary" onClick={this.showUserAddModal}>添加员工</Button>}>
-            <TabPane tab="员工管理" key="1">
+                tabBarExtraContent={<Button type="primary" onClick={this.showUserAddModal}>添加用户</Button>}>
+            <TabPane tab="用户管理" key="1">
               <UserSearchForm ref="userSearchForm" handleSearchUserList={this.handleSearchUserList}/>
               <Table className='user-table' columns={userColumns} dataSource={this.state.userData} pagination={this.state.userPager} onChange={this.changeUserPager} rowKey='id' loading={this.state.userTableLoading}/>
             </TabPane>
           </Tabs>
-          <UserEditModal ref="userEditForm" visible={this.state.userEditModalVisible} confirmLoading={this.state.confirmUserLoading} onCancel={this.closeUserEditModal} onConfirm={this.confirmUserEditModal} adviserAndManagerData={this.state.adviserAndManagerData} />
-          <UserAddModal ref="userAddForm" visible={this.state.userAddModalVisible} confirmLoading={this.state.confirmUserAddModalLoading} onCancel={this.closeUserAddModal} onConfirm={this.confirmUserAddModal}  adviserAndManagerData={this.state.adviserAndManagerData}/>
+          <UserEditModal ref="userEditForm" visible={this.state.userEditModalVisible} confirmLoading={this.state.confirmUserLoading} onCancel={this.closeUserEditModal} onConfirm={this.confirmUserEditModal} />
+          <UserAddModal ref="userAddForm" visible={this.state.userAddModalVisible} confirmLoading={this.state.confirmUserAddModalLoading} onCancel={this.closeUserAddModal} onConfirm={this.confirmUserAddModal} />
         </div>
     );
   }

@@ -17,7 +17,7 @@ class UserAddModal_ extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
     return (
-      <Modal title="添加会员" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
+      <Modal title="添加用户" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
           <FormItem {...formItemLayout} label="姓名" hasFeedback={true}>
             {getFieldDecorator('name', { rules: [{ required: true, message: '请输入姓名' }]

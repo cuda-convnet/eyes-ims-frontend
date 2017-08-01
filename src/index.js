@@ -10,6 +10,8 @@ import Register from './Index/Register/Register.js';
 import Home from './Home/Home.js';
 import Welcome from './Home/Welcome/Welcome.js';
 import UserManage from './Home/UserManage/UserManage.js';
+import DoctorManage from './Home/DoctorManage/DoctorManage.js';
+import SurgeryManage from './Home/SurgeryManage/SurgeryManage.js';
 import {message} from 'antd'
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 
@@ -45,6 +47,9 @@ const certifyAccess = function(nextState, replace){
       case ROUTE.FIND_PASSWORD.URL_PREFIX:certifyRole(replace, role, ROUTE.FIND_PASSWORD.PERMISSION);break;
       case ROUTE.HOME.URL_PREFIX:certifyRole(replace, role, ROUTE.HOME.PERMISSION);break;
       case ROUTE.USER_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.EMPLOYEE_MANAGE.PERMISSION);break;
+      case ROUTE.DOCTOR_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.DOCTOR_MANAGE.PERMISSION);break;
+      case ROUTE.SURGERY_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.SURGERY_MANAGE.PERMISSION);break;
+
 
       default:clearSession(); replace({ pathname: ROUTE.LOGIN.URL }); message.error('暂无该页面，请重新登录');break;
     }
@@ -79,6 +84,8 @@ class AppRouter extends React.Component {
                   <Route path={ROUTE.HOME.URL} component={Home}>
                       <IndexRoute component={Welcome} />
                       <Route path={ROUTE.USER_MANAGE.URL} component={UserManage}/>
+                      <Route path={ROUTE.DOCTOR_MANAGE.URL} component={DoctorManage}/>
+                      <Route path={ROUTE.SURGERY_MANAGE.URL} component={SurgeryManage}/>
                       {/* <Route path={ROUTE.EMPLOYEE_MANAGE.URL} component={EmployeeManage}/>
                       <Route path={ROUTE.MEMBER_MANAGE.URL} component={MemberManage}/>
 

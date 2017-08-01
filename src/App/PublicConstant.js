@@ -5,7 +5,7 @@ const SERVER = 'http://localhost:8080' //yaochenkun
 //const SERVER = 'http://47.92.91.99:8080' //tencentcloud
 
 //文件服务器地址
-const FILE_SERVER = 'http://10.109.247.127:8088' //yaochenkun
+const FILE_SERVER = 'http://localhost:8088' //yaochenkun
 //const FILE_SERVER = 'http://10.109.247.127:8088' //lab
 //const FILE_SERVER = 'http://47.92.91.99:8088' //tencentcloud
 
@@ -48,6 +48,14 @@ const ROUTE = {
 
     WELCOME: {URL:'/home/:menuKey', URL_PREFIX:'/home', MENU_KEY: '1', PERMISSION: []},
     USER_MANAGE: {URL:'/user_manage/:menuKey', URL_PREFIX:'/user_manage', MENU_KEY: '2', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
+    DOCTOR_MANAGE: {URL:'/doctor_manage/:menuKey', URL_PREFIX:'/doctor_manage', MENU_KEY: '3', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
+    SURGERY_MANAGE: {URL:'/surgery_manage/:menuKey', URL_PREFIX:'/surgery_manage', MENU_KEY: '4', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
+
+
+
+
+
+
 
     EMPLOYEE_MANAGE: {URL:'/employee_manage/:menuKey', URL_PREFIX:'/employee_manage', MENU_KEY: '2', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_FINANCER, ROLE.EMPLOYEE_ARCHIVE_MANAGER, ROLE.EMPLOYEE_ADVISE_MANAGER]},
     MEMBER_MANAGE: {URL:'/member_manage/:menuKey', URL_PREFIX:'/member_manage', MENU_KEY: '6', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_FINANCER]},
@@ -61,6 +69,58 @@ const ROUTE = {
     EXAM_RESULT_MANAGE: {URL:'/exam_result_manage/:menuKey', URL_PREFIX:'/exam_result_manage', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_ARCHIVE_MANAGER, ROLE.EMPLOYEE_ARCHIVER, ROLE.EMPLOYEE_ADVISE_MANAGER, ROLE.EMPLOYEE_ADVISER]},
     EXAM_RESULT_DETAIL: {URL:'/exam_result_detail/:menuKey/:memberId/:memberName', URL_PREFIX:'/exam_result_detail', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_ARCHIVE_MANAGER, ROLE.EMPLOYEE_ARCHIVER, ROLE.EMPLOYEE_ADVISE_MANAGER, ROLE.EMPLOYEE_ADVISER, ROLE.MEMBER_2, ROLE.MEMBER_3]}
 }
+
+//医师级别
+const DOCTOR_LEVEL = [
+  '一级主任医师',
+  '二级主任医师',
+  '三级主任医师',
+
+  '一级副主任医师',
+  '二级副主任医师',
+  '三级副主任医师',
+
+  '一级主治医师',
+  '二级主治医师',
+  '三级主治医师',
+
+  '一级医师',
+  '二级医师',
+  '三级医师',
+
+  '一级卫生主任技师',
+  '二级卫生主任技师',
+  '三级卫生主任技师',
+
+  '一级卫生副主任技师',
+  '二级卫生副主任技师',
+  '三级卫生副主任技师',
+
+  '一级卫生主管技师',
+  '二级卫生主管技师',
+  '三级卫生主管技师',
+
+  '一级卫生技师',
+  '二级卫生技师',
+  '三级卫生技师',
+
+  '一级副主任护师',
+  '二级副主任护师',
+  '三级副主任护师',
+
+  '一级主管护师',
+  '二级主管护师',
+  '三级主管护师',
+
+  '一级护师',
+  '二级护师',
+  '三级护师',
+
+  '护士'
+]
+
+//手术级别
+
 
 //session中常量
 const SESSION = {
@@ -108,5 +168,6 @@ export {
   STYLE,
   COLOR,
   ROUTE,
-  FILE_SERVER
+  FILE_SERVER,
+  DOCTOR_LEVEL
 };

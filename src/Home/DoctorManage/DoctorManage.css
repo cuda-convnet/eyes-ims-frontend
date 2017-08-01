@@ -1,0 +1,16 @@
+.doctor-table{
+  margin-top: 25px;
+}
+
+.doctor-table-delete{
+  color:#f46e65;
+}
+
+.doctor-table-delete:hover{
+  color:#f79992;
+}
+
+.doctor-table-pager {
+  float:right;
+  margin-top: 20px;
+}

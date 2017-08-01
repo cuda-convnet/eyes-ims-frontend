@@ -1,0 +1,16 @@
+.surgery-table{
+  margin-top: 25px;
+}
+
+.surgery-table-delete{
+  color:#f46e65;
+}
+
+.surgery-table-delete:hover{
+  color:#f79992;
+}
+
+.surgery-table-pager {
+  float:right;
+  margin-top: 20px;
+}

@@ -14,7 +14,7 @@ class UserEditModal_ extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
     return (
-      <Modal title="修改员工信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
+      <Modal title="修改用户信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
           <FormItem {...formItemLayout} label="姓名">
             {getFieldDecorator('name')(

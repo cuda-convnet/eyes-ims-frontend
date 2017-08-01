@@ -87,6 +87,8 @@ class Home extends React.Component {
     switch(e.key) {
       case ROUTE.WELCOME.MENU_KEY: targetUrl = ROUTE.WELCOME.URL_PREFIX + "/" + ROUTE.WELCOME.MENU_KEY; break;
       case ROUTE.USER_MANAGE.MENU_KEY: targetUrl = ROUTE.USER_MANAGE.URL_PREFIX + "/" + ROUTE.USER_MANAGE.MENU_KEY; break;
+      case ROUTE.DOCTOR_MANAGE.MENU_KEY: targetUrl = ROUTE.DOCTOR_MANAGE.URL_PREFIX + "/" + ROUTE.DOCTOR_MANAGE.MENU_KEY; break;
+      case ROUTE.SURGERY_MANAGE.MENU_KEY: targetUrl = ROUTE.SURGERY_MANAGE.URL_PREFIX + "/" + ROUTE.SURGERY_MANAGE.MENU_KEY; break;
       default:;break;
     }
 
@@ -149,7 +151,15 @@ class Home extends React.Component {
             </Menu.Item>
             <Menu.Item key={ROUTE.USER_MANAGE.MENU_KEY} style={{display: layoutStyle.userManageMenuItemDisplay}}>
               <Icon type="team" className="menu-item-font"/>
-              <span className="nav-text menu-item-font">员工管理</span>
+              <span className="nav-text menu-item-font">用户管理</span>
+            </Menu.Item>
+            <Menu.Item key={ROUTE.DOCTOR_MANAGE.MENU_KEY} style={{display: layoutStyle.doctorManageMenuItemDisplay}}>
+              <Icon type="idcard" className="menu-item-font"/>
+              <span className="nav-text menu-item-font">医师管理</span>
+            </Menu.Item>
+            <Menu.Item key={ROUTE.SURGERY_MANAGE.MENU_KEY} style={{display: layoutStyle.surgeryManageMenuItemDisplay}}>
+              <Icon type="medicine-box" className="menu-item-font"/>
+              <span className="nav-text menu-item-font">手术管理</span>
             </Menu.Item>
           </Menu>
         </Sider>

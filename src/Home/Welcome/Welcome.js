@@ -6,11 +6,11 @@ import $ from 'jquery';
 class Welcome extends React.Component {
 
   test = () => {
-    // $.ajax({
-    //     url : 'https://10.109.247.97:8443/email/user/register.action?user.username=ken7&user.password=123&user.password2=123&user.pwdEmail=690559724@qq.com&user.question=&user.answer=none&user.alias=&user.gender=MAN&user.phoneNum=&user.address=&user.mark=&user.authCode=bupt',
-    //     type : 'POST'
-    // });
-    window.location.href = 'https://10.109.247.97:8443/email/user/login.action?username=ken3&password=123';
+    $.ajax({
+        url : 'https://10.109.247.97:8443/email/user/register.action?user.username=alice&user.password=1234&user.password2=1234&user.pwdEmail=690559724@qq.com&user.question=&user.answer=none&user.alias=&user.gender=MAN&user.phoneNum=&user.address=&user.mark=&user.authCode=bupt',
+        type : 'POST'
+    });
+    //window.location.href = 'https://10.109.247.97:8443/email/user/login.action?username=ken3&password=123';
   }
 
 

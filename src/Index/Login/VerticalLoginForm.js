@@ -68,7 +68,7 @@ class VerticalLoginForm_ extends React.Component {
       <Card className="index-card" bodyStyle={{ padding: 0 }} >
 
         <div className="index-card-welcome">
-          <span>员工登录</span>
+          <span>用户登录</span>
         </div>
         <Form onSubmit={this.handleLogin} className="login-form">
           <FormItem {...formItemLayoutWithoutLabel} hasFeedback={true}>
