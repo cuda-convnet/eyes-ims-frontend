@@ -45,62 +45,7 @@ class Login extends React.Component {
               <div style={{paddingLeft:80, paddingRight:80}}>
                 <div className='introduce-text' style={{textAlign:'center'}}>
                   <h1>眼科工作量统计系统简介</h1>
-                </div>
-                <div style={{marginLeft:25}}>
-                  <Card className='card' bodyStyle={{ padding: 0 }}>
-                    <div className="custom-image">
-                      <img alt="example" src="/Home/Welcome/user_card.svg" />
-                    </div>
-                    <div className="custom-card">
-                      <h3>会员管理</h3>
-                      <p>会员信息、角色级别、所属顾问</p>
-                    </div>
-                  </Card>
-                  <Card className='card' bodyStyle={{ padding: 0 }}>
-                    <div className="custom-image">
-                      <img alt="example" src="/Home/Welcome/doctor_card.svg"/>
-                    </div>
-                    <div className="custom-card">
-                      <h3>职员管理</h3>
-                      <p>权限配置、所属主管</p>
-                    </div>
-                  </Card>
-                  <Card className='card' bodyStyle={{ padding: 0 }}>
-                    <div className="custom-image">
-                      <img alt="example" src="/Home/Welcome/health_card.svg" />
-                    </div>
-                    <div className="custom-card">
-                      <h3>健康管理</h3>
-                      <p>健康摘要、就医方案</p>
-                    </div>
-                  </Card>
-                  <Card className='card' bodyStyle={{ padding: 0 }}>
-                    <div className="custom-image">
-                      <img alt="example" src="/Home/Welcome/record_card.svg" />
-                    </div>
-                    <div className="custom-card">
-                      <h3>原始数据管理</h3>
-                      <p>用户扫描件</p>
-                    </div>
-                  </Card>
-                  <Card className='card' bodyStyle={{ padding: 0 }}>
-                    <div className="custom-image">
-                      <img alt="example" src="/Home/Welcome/origindata_card.svg" />
-                    </div>
-                    <div className="custom-card">
-                      <h3>化验/医技数据管理</h3>
-                      <p>数据录入、数据导出</p>
-                    </div>
-                  </Card>
-                  <Card className='card' bodyStyle={{ padding: 0 }}>
-                    <div className="custom-image">
-                      <img alt="example" src="/Home/Welcome/config_card.svg" />
-                    </div>
-                    <div className="custom-card">
-                      <h3>系统管理</h3>
-                      <p>维护检查项目、用户申请单</p>
-                    </div>
-                  </Card>
+                  <div style={{minHeight: 500}}></div>
                 </div>
               </div>
             </Content>

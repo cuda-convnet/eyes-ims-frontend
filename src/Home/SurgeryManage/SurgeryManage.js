@@ -2,9 +2,9 @@ import './SurgeryManage.css'
 import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE} from './../../App/PublicConstant.js'
 import React from 'react';
 import {Tabs, Table, message, Popconfirm, BackTop, Button} from 'antd';
-// import SurgeryEditModal from './SurgeryEditModal.js';
-// import SurgerySearchForm from './SurgerySearchForm.js';
-// import SurgeryAddModal from './SurgeryAddModal.js';
+import SurgeryEditModal from './SurgeryEditModal.js';
+import SurgerySearchForm from './SurgerySearchForm.js';
+import SurgeryAddModal from './SurgeryAddModal.js';
 import $ from 'jquery';
 const TabPane = Tabs.TabPane;
 
@@ -13,7 +13,7 @@ class SurgeryManage extends React.Component {
 
   state = {
 
-    //手术相关
+    //手术医嘱相关
     surgeryData: [],
     surgeryPager: {pageSize: PAGE_SIZE, total: 0},
     adviserAndManagerData: [],
@@ -37,15 +37,16 @@ class SurgeryManage extends React.Component {
 
         this.setState({ surgeryTableLoading: true});
 
-        console.log('拉取第'+ pageNow + "页手术信息", values);
+        console.log('拉取第'+ pageNow + "页手术医嘱信息", values);
 
         $.ajax({
             url : SERVER + '/api/surgery/list',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({surgeryname: values.surgeryname,
+            data : JSON.stringify({code: values.code,
                                    name : values.name,
-                                   role : values.role === "全部" ? "" : values.role,
+                                   alias : values.alias,
+                                   level : values.level === '全部' ? '' : values.level,
                                    pageNow: pageNow,
                                    pageSize: PAGE_SIZE}),
             dataType : 'json',
@@ -76,10 +77,10 @@ class SurgeryManage extends React.Component {
     });
   }
 
-  //删除手术
+  //删除手术医嘱
   handleDeleteSurgery(record) {
 
-    console.log('删除手术', record);
+    console.log('删除手术医嘱', record);
 
     $.ajax({
         url : SERVER + '/api/surgery/' + record.id,
@@ -104,10 +105,10 @@ class SurgeryManage extends React.Component {
     });
   }
 
-  //查询surgeryId手术信息显示到对话框内
+  //查询surgeryId手术医嘱信息显示到对话框内
   requestSurgery = (surgeryId) => {
 
-    console.log('查询手术', surgeryId);
+    console.log('查询手术医嘱', surgeryId);
 
     $.ajax({
         url : SERVER + '/api/surgery/' + surgeryId,
@@ -122,9 +123,18 @@ class SurgeryManage extends React.Component {
                 let surgery = result.content;
 
                 if(this.refs.surgeryEditForm == null) return;
-                this.refs.surgeryEditForm.setFieldsValue({name: surgery.name,
-                                                       surgeryname: surgery.surgeryname,
-                                                       role: surgery.role});
+                this.refs.surgeryEditForm.setFieldsValue({ code: surgery.code,
+                                                           name: surgery.name,
+                                                           alias: surgery.alias,
+                                                           price: surgery.price,
+                                                           category: surgery.category,
+                                                           chargeCode: surgery.chargeCode,
+                                                           chargeName: surgery.chargeName,
+                                                           chargeCount: surgery.chargeCount,
+                                                           chargePrice: surgery.chargePrice,
+                                                           extraPrice: surgery.extraPrice,
+                                                           level: surgery.level});
+
 
                 return;
             } else {
@@ -140,7 +150,7 @@ class SurgeryManage extends React.Component {
 
     this.setState({surgeryEditModalVisible: true});
 
-    this.surgeryId = record.id //保存当前正在编辑的手术手术名方便提交用
+    this.surgeryId = record.id //保存当前正在编辑的手术医嘱手术医嘱名方便提交用
     this.requestSurgery(this.surgeryId);
   }
 
@@ -149,10 +159,10 @@ class SurgeryManage extends React.Component {
   //确认更新信息
   confirmSurgeryEditModal = () => {
 
-    //请求修改手术
+    //请求修改手术医嘱
     this.refs.surgeryEditForm.validateFields((err, values) => {
       if(!err) {
-        console.log('修改手术', values);
+        console.log('修改手术医嘱', values);
 
         //显示加载圈
         this.setState({ confirmSurgeryLoading: true });
@@ -161,8 +171,19 @@ class SurgeryManage extends React.Component {
             url : SERVER + '/api/surgery',
             type : 'PUT',
             contentType: 'application/json',
-            data : JSON.stringify({surgeryId: this.surgeryId, role: values.role}),
             dataType : 'json',
+            data : JSON.stringify({surgeryId: this.surgeryId,
+                                   code: values.code,
+                                   name: values.name,
+                                   alias: values.alias,
+                                   price: values.price.toFixed(2),
+                                   category: values.category,
+                                   chargeCode: values.chargeCode,
+                                   chargeName: values.chargeName,
+                                   chargeCount: values.chargeCount.toFixed(2),
+                                   chargePrice: values.chargePrice.toFixed(2),
+                                   extraPrice: values.extraPrice.toFixed(2),
+                                   level: values.level }),
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
               console.log(result);
@@ -191,7 +212,7 @@ class SurgeryManage extends React.Component {
 
 
   /**
-  * 添加手术对话框
+  * 添加手术医嘱对话框
   **/
   showSurgeryAddModal = (record) => this.setState({ surgeryAddModalVisible: true})
 
@@ -202,7 +223,7 @@ class SurgeryManage extends React.Component {
     //请求修改职员
     this.refs.surgeryAddForm.validateFields((err, values) => {
       if(!err) {
-        console.log('添加手术', values);
+        console.log('添加手术医嘱', values);
 
         //显示加载圈
         this.setState({ confirmSurgeryAddModalLoading: true });
@@ -211,10 +232,17 @@ class SurgeryManage extends React.Component {
             url : SERVER + '/api/surgery',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({name: values.name,
-                                   surgeryname: values.surgeryname,
-                                   role: values.role
-                                   }),
+            data : JSON.stringify({code: values.code,
+                                   name: values.name,
+                                   alias: values.alias,
+                                   price: values.price.toFixed(2),
+                                   category: values.category,
+                                   chargeCode: values.chargeCode,
+                                   chargeName: values.chargeName,
+                                   chargeCount: values.chargeCount.toFixed(2),
+                                   chargePrice: values.chargePrice.toFixed(2),
+                                   extraPrice: values.extraPrice.toFixed(2),
+                                   level: values.level }),
             dataType : 'json',
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
@@ -252,17 +280,45 @@ class SurgeryManage extends React.Component {
 
     //surgery表头//////////
     const surgeryColumns = [{
-      title: '姓名',
+      title: '代码',
+      dataIndex: 'code',
+      key: 'code'
+    },{
+      title: '名称',
       dataIndex: 'name',
       key: 'name'
     },{
-      title: '手术名',
-      dataIndex: 'surgeryname',
-      key: 'surgeryname'
-    }, {
-      title: '角色级别',
-      dataIndex: 'role',
-      key: 'role',
+      title: '价格',
+      dataIndex: 'price',
+      key: 'price',
+    },{
+      title: '子类',
+      dataIndex: 'category',
+      key: 'category',
+    },{
+      title: '收费代码',
+      dataIndex: 'chargeCode',
+      key: 'chargeCode',
+    },{
+      title: '收费名称',
+      dataIndex: 'chargeName',
+      key: 'chargeName',
+    },{
+      title: '数量',
+      dataIndex: 'chargeCount',
+      key: 'chargeCount',
+    },{
+      title: '价格',
+      dataIndex: 'chargePrice',
+      key: 'chargePrice',
+    },{
+      title: '特需价格',
+      dataIndex: 'extraPrice',
+      key: 'extraPrice',
+    },{
+      title: '手术级别',
+      dataIndex: 'level',
+      key: 'level',
     }, {
       title: '操作',
       key: 'action',
@@ -274,7 +330,7 @@ class SurgeryManage extends React.Component {
             ?
             <span>
               <span className="ant-divider" />
-              <Popconfirm title="您确定要删除该手术吗?" onConfirm={() => this.handleDeleteSurgery(record)}>
+              <Popconfirm title="您确定要删除该手术医嘱吗?" onConfirm={() => this.handleDeleteSurgery(record)}>
                 <a className='surgery-table-delete'>删除</a>
               </Popconfirm>
             </span>
@@ -287,17 +343,16 @@ class SurgeryManage extends React.Component {
 
     return (
         <div>
-          手术管理
-          {/* <BackTop visibilityHeight="200"/>
+          <BackTop visibilityHeight="200"/>
           <Tabs defaultActiveKey={"1"}
-                tabBarExtraContent={<Button type="primary" onClick={this.showSurgeryAddModal}>添加手术</Button>}>
-            <TabPane tab="手术管理" key="1">
+                tabBarExtraContent={<Button type="primary" onClick={this.showSurgeryAddModal}>添加手术医嘱</Button>}>
+            <TabPane tab="手术医嘱管理" key="1">
               <SurgerySearchForm ref="surgerySearchForm" handleSearchSurgeryList={this.handleSearchSurgeryList}/>
               <Table className='surgery-table' columns={surgeryColumns} dataSource={this.state.surgeryData} pagination={this.state.surgeryPager} onChange={this.changeSurgeryPager} rowKey='id' loading={this.state.surgeryTableLoading}/>
             </TabPane>
           </Tabs>
           <SurgeryEditModal ref="surgeryEditForm" visible={this.state.surgeryEditModalVisible} confirmLoading={this.state.confirmSurgeryLoading} onCancel={this.closeSurgeryEditModal} onConfirm={this.confirmSurgeryEditModal}  />
-          <SurgeryAddModal ref="surgeryAddForm" visible={this.state.surgeryAddModalVisible} confirmLoading={this.state.confirmSurgeryAddModalLoading} onCancel={this.closeSurgeryAddModal} onConfirm={this.confirmSurgeryAddModal}  /> */}
+          <SurgeryAddModal ref="surgeryAddForm" visible={this.state.surgeryAddModalVisible} confirmLoading={this.state.confirmSurgeryAddModalLoading} onCancel={this.closeSurgeryAddModal} onConfirm={this.confirmSurgeryAddModal}  />
         </div>
     );
   }

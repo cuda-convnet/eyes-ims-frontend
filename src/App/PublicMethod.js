@@ -27,40 +27,6 @@ const isEmployee = function(role) {
   }
 }
 
-//判断一个用户是否为顾问员工/主管
-const isAdviser = function(role) {
-
-  switch(role){
-    case ROLE.EMPLOYEE_ADVISER:
-    case ROLE.EMPLOYEE_ADVISE_MANAGER: return true;
-    default: return false;
-  }
-}
-
-//判断一个用户是否为档案员工/主管
-const isArchiver = function(role) {
-
-  switch(role){
-    case ROLE.EMPLOYEE_ARCHIVER:
-    case ROLE.EMPLOYEE_ARCHIVE_MANAGER: return true;
-    default: return false;
-  }
-}
-
-
-
-//判断一个用户是否为会员
-const isMember = function(role) {
-
-  switch(role){
-
-    case ROLE.MEMBER_1:
-    case ROLE.MEMBER_2:
-    case ROLE.MEMBER_3:return true;
-    default: return false;
-  }
-}
-
 //判断数组中是否存在obj元素
 const containsElement = function(obj, arr) {
 
@@ -90,9 +56,5 @@ const isImgExist = function(imgurl) {
 export {
   clearSession,
   containsElement,
-  isImgExist,
-  isEmployee,
-  isAdviser,
-  isArchiver,
-  isMember
+  isImgExist
 }

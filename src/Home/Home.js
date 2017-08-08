@@ -60,21 +60,27 @@ class Home extends React.Component {
     let layoutStyle;
 
     //主色调、用户管理、检查项目、原始资料、化验/医技数据、健康管理
-    if(role === ROLE.EMPLOYEE_ADMIN) layoutStyle = this.getLayoutStyle(COLOR.RED, STYLE.BLOCK);
-    else if(role === ROLE.EMPLOYEE_INPUTER) layoutStyle = this.getLayoutStyle(COLOR.ORANGE, STYLE.NONE);
-    else if(role === ROLE.EMPLOYEE_HANDLER) layoutStyle = this.getLayoutStyle(COLOR.BLUE, STYLE.NONE);
-    else if(role === ROLE.EMPLOYEE_VISITOR) layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE);
-    else layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE);
+    if(role === ROLE.EMPLOYEE_ADMIN) layoutStyle = this.getLayoutStyle(COLOR.RED, STYLE.BLOCK, STYLE.BLOCK, STYLE.BLOCK, STYLE.BLOCK);
+    else if(role === ROLE.EMPLOYEE_INPUTER) layoutStyle = this.getLayoutStyle(COLOR.ORANGE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.BLOCK);
+    else if(role === ROLE.EMPLOYEE_HANDLER) layoutStyle = this.getLayoutStyle(COLOR.BLUE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE);
+    else if(role === ROLE.EMPLOYEE_VISITOR) layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE);
+    else layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE);
 
     return layoutStyle;
   }
 
   getLayoutStyle(roleTagColor,
-                 userManageMenuItemDisplay) {
+                 userManageMenuItemDisplay,
+                 doctorManageMenuItemDisplay,
+                 surgeryManageMenuItemDisplay,
+                 recordManageMenuItemDisplay) {
 
       let layoutStyle = {
         roleTagColor: roleTagColor,
-        userManageMenuItemDisplay: userManageMenuItemDisplay
+        userManageMenuItemDisplay: userManageMenuItemDisplay,
+        doctorManageMenuItemDisplay: doctorManageMenuItemDisplay,
+        surgeryManageMenuItemDisplay: surgeryManageMenuItemDisplay,
+        recordManageMenuItemDisplay: recordManageMenuItemDisplay
       };
 
       return layoutStyle;
@@ -89,6 +95,7 @@ class Home extends React.Component {
       case ROUTE.USER_MANAGE.MENU_KEY: targetUrl = ROUTE.USER_MANAGE.URL_PREFIX + "/" + ROUTE.USER_MANAGE.MENU_KEY; break;
       case ROUTE.DOCTOR_MANAGE.MENU_KEY: targetUrl = ROUTE.DOCTOR_MANAGE.URL_PREFIX + "/" + ROUTE.DOCTOR_MANAGE.MENU_KEY; break;
       case ROUTE.SURGERY_MANAGE.MENU_KEY: targetUrl = ROUTE.SURGERY_MANAGE.URL_PREFIX + "/" + ROUTE.SURGERY_MANAGE.MENU_KEY; break;
+      case ROUTE.RECORD_MANAGE.MENU_KEY: targetUrl = ROUTE.RECORD_MANAGE.URL_PREFIX + "/" + ROUTE.RECORD_MANAGE.MENU_KEY; break;
       default:;break;
     }
 
@@ -159,7 +166,11 @@ class Home extends React.Component {
             </Menu.Item>
             <Menu.Item key={ROUTE.SURGERY_MANAGE.MENU_KEY} style={{display: layoutStyle.surgeryManageMenuItemDisplay}}>
               <Icon type="medicine-box" className="menu-item-font"/>
-              <span className="nav-text menu-item-font">手术管理</span>
+              <span className="nav-text menu-item-font">手术医嘱管理</span>
+            </Menu.Item>
+            <Menu.Item key={ROUTE.RECORD_MANAGE.MENU_KEY} style={{display: layoutStyle.recordManageMenuItemDisplay}}>
+              <Icon type="medicine-box" className="menu-item-font"/>
+              <span className="nav-text menu-item-font">手术记录管理</span>
             </Menu.Item>
           </Menu>
         </Sider>

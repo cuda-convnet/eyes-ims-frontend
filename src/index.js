@@ -12,6 +12,7 @@ import Welcome from './Home/Welcome/Welcome.js';
 import UserManage from './Home/UserManage/UserManage.js';
 import DoctorManage from './Home/DoctorManage/DoctorManage.js';
 import SurgeryManage from './Home/SurgeryManage/SurgeryManage.js';
+import RecordManage from './Home/RecordManage/RecordManage.js';
 import {message} from 'antd'
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 
@@ -49,7 +50,7 @@ const certifyAccess = function(nextState, replace){
       case ROUTE.USER_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.EMPLOYEE_MANAGE.PERMISSION);break;
       case ROUTE.DOCTOR_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.DOCTOR_MANAGE.PERMISSION);break;
       case ROUTE.SURGERY_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.SURGERY_MANAGE.PERMISSION);break;
-
+      case ROUTE.RECORD_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.RECORD_MANAGE.PERMISSION);break;
 
       default:clearSession(); replace({ pathname: ROUTE.LOGIN.URL }); message.error('暂无该页面，请重新登录');break;
     }
@@ -86,17 +87,7 @@ class AppRouter extends React.Component {
                       <Route path={ROUTE.USER_MANAGE.URL} component={UserManage}/>
                       <Route path={ROUTE.DOCTOR_MANAGE.URL} component={DoctorManage}/>
                       <Route path={ROUTE.SURGERY_MANAGE.URL} component={SurgeryManage}/>
-                      {/* <Route path={ROUTE.EMPLOYEE_MANAGE.URL} component={EmployeeManage}/>
-                      <Route path={ROUTE.MEMBER_MANAGE.URL} component={MemberManage}/>
-
-                      <Route path={ROUTE.FIRST_CATEGORY_MANAGE.URL} component={FirstCategoryManage}/>
-                      <Route path={ROUTE.SECOND_CATEGORY_MANAGE.URL} component={SecondCategoryManage}/>
-                      <Route path={ROUTE.THIRD_CATEGORY_MANAGE.URL} component={ThirdCategoryManage}/>
-
-                      <Route path={ROUTE.ORIGIN_RESULT_MANAGE.URL} component={OriginResultManage}/>
-
-                      <Route path={ROUTE.EXAM_RESULT_MANAGE.URL} component={ExamResultManage}/>
-                      <Route path={ROUTE.EXAM_RESULT_DETAIL.URL} component={ExamResultDetail}/> */}
+                      <Route path={ROUTE.RECORD_MANAGE.URL} component={RecordManage}/>
                   </Route>
                 </Route>
 
