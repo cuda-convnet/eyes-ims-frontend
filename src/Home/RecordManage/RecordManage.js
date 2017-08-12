@@ -1,5 +1,6 @@
-import './RecordManage.css'
-import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE} from './../../App/PublicConstant.js'
+import './RecordManage.css';
+import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE} from './../../App/PublicConstant.js';
+import {formatDate} from './../../App/PublicUtil.js';
 import React from 'react';
 import {Tabs, Table, message, Popconfirm, BackTop, Button} from 'antd';
 import RecordEditModal from './RecordEditModal.js';
@@ -43,10 +44,13 @@ class RecordManage extends React.Component {
             url : SERVER + '/api/record/list',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({code: values.code,
-                                   name : values.name,
-                                   alias : values.alias,
-                                   level : values.level === '全部' ? '' : values.level,
+            data : JSON.stringify({surgeryName: values.surgeryName,
+                                   historyNum : values.historyNum,
+                                   patientName : values.patientName,
+                                   surgeonName : values.surgeonName,
+                                   helperName : values.helperName,
+                                   beginTime: values.date !== undefined ? formatDate(values.date[0]) : undefined,
+                                   endTime: values.date !== undefined ? formatDate(values.date[1]) : undefined,
                                    pageNow: pageNow,
                                    pageSize: PAGE_SIZE}),
             dataType : 'json',
@@ -228,51 +232,51 @@ class RecordManage extends React.Component {
         //显示加载圈
         this.setState({ confirmRecordAddModalLoading: true });
 
-        // $.ajax({
-        //     url : SERVER + '/api/record',
-        //     type : 'POST',
-        //     contentType: 'application/json',
-        //     data : JSON.stringify({code: values.code,
-        //                            name: values.name,
-        //                            alias: values.alias,
-        //                            price: values.price.toFixed(2),
-        //                            category: values.category,
-        //                            chargeCode: values.chargeCode,
-        //                            chargeName: values.chargeName,
-        //                            chargeCount: values.chargeCount.toFixed(2),
-        //                            chargePrice: values.chargePrice.toFixed(2),
-        //                            extraPrice: values.extraPrice.toFixed(2),
-        //                            level: values.level }),
-        //     dataType : 'json',
-        //     beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
-        //     success : (result) => {
-        //       console.log(result);
-        //       if(result.code === RESULT.SUCCESS) {
-        //
-        //         //重查刷新一遍
-        //         this.handleSearchRecordList(this.state.recordPager.current);
-        //
-        //         //关闭加载圈、对话框
-        //         this.setState({
-        //           recordAddModalVisible: false,
-        //           confirmRecordAddModalLoading: false,
-        //         });
-        //         message.success(result.reason, 2);
-        //       } else {
-        //
-        //         //关闭加载圈
-        //         this.setState({ confirmRecordAddModalLoading: false });
-        //         message.error(result.reason, 2);
-        //       }
-        //     }
-        // });
+        $.ajax({
+            url : SERVER + '/api/record',
+            type : 'POST',
+            contentType: 'application/json',
+            data : JSON.stringify({date: formatDate(values.date),
+                                   type: values.type,
+                                   historyNum: values.historyNum,
+                                   name: values.name,
+                                   sex: values.sex,
+                                   age: Number(values.age),
+                                   eye: values.eye,
+                                   surgeries: values.surgeries,
+                                   surgeons: values.surgeons,
+                                   helpers: values.helpers}),
+            dataType : 'json',
+            beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
+            success : (result) => {
+
+              console.log(result);
+              if(result.code === RESULT.SUCCESS) {
+
+                //重查刷新一遍
+                this.handleSearchRecordList(this.state.recordPager.current);
+
+                //关闭加载圈、对话框
+                this.setState({
+                  recordAddModalVisible: false,
+                  confirmRecordAddModalLoading: false,
+                });
+                message.success(result.reason, 2);
+              } else {
+
+                //关闭加载圈
+                this.setState({ confirmRecordAddModalLoading: false });
+                message.error(result.reason, 2);
+              }
+            }
+        });
       }
     });
   }
 
   componentDidMount = () => {
 
-    //this.handleSearchRecordList(1);
+    this.handleSearchRecordList(1);
   }
 
   render(){
@@ -303,23 +307,29 @@ class RecordManage extends React.Component {
       title: '手术日期',
       dataIndex: 'date',
       key: 'date',
+      render: (date) => formatDate(date)
     },{
-      title: '所有手术',
-      dataIndex: '',
-      key: '',
+      title: '所做手术',
+      dataIndex: 'surgeries',
+      key: 'surgeries',
+      render: (surgeries) => <span>{surgeries.split(',').map((surgery) => <span>{surgery}<br/></span>)}</span>
     },{
       title: '术者',
-      dataIndex: '',
-      key: '',
+      dataIndex: 'surgeons',
+      key: 'surgeons',
+      render: (surgeons) => <span>{surgeons.split(',').map((surgeon) => <span>{surgeon}<br/></span>)}</span>
     },{
       title: '助手',
-      dataIndex: '',
-      key: '',
+      dataIndex: 'helpers',
+      key: 'helpers',
+      render: (helpers) => <span>{helpers.split(',').map((helper) => <span>{helper}<br/></span>)}</span>
     }, {
       title: '操作',
       key: 'action',
       render: (record) => (
         <span>
+          <a onClick={() => this.showRecordEditModal(record)}>查看</a>
+          <span className="ant-divider" />
           <a onClick={() => this.showRecordEditModal(record)}>修改</a>
           {
             sessionStorage.getItem(SESSION.ROLE) === ROLE.EMPLOYEE_ADMIN

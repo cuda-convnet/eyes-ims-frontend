@@ -1,5 +1,6 @@
 import React from 'react';
 import {ROLE, SURGERY_LEVEL} from './../../App/PublicConstant.js';
+import {REGEX} from './../../App/PublicRegex.js';
 import { Form, Input, Select,Modal, Cascader, InputNumber} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -23,7 +24,7 @@ class SurgeryEditModal_ extends React.Component {
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="名称" hasFeedback={true}>
-              {getFieldDecorator('name', { rules: [{ required: true, message: '请输入医嘱名称' }],
+              {getFieldDecorator('name', { rules: [{ required: true, message: '请输入医嘱名称' }, {pattern: REGEX.WITHOUT_SPECIAL_CHARACTER, message: '不能包括特殊字符*.?+$^[](){}|\/'}],
               })(
               <Input />
               )}

@@ -62,7 +62,7 @@ class RecordAddModal_ extends React.Component {
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="年龄" hasFeedback={true}>
-              {getFieldDecorator('age', { rules: [{ required: true, message: '请输入数量' }]})(
+              {getFieldDecorator('age', { rules: [{ required: true, message: '请输入年龄' }]})(
               <InputNumber step={1} min={0} max={99} precision={0} style={{width: '100%'}}/>
               )}
           </FormItem>
@@ -78,15 +78,15 @@ class RecordAddModal_ extends React.Component {
           <h3 className="record-header">详细信息</h3>
 
           <FormItem {...formItemLayoutOfRemoteSelect} label="手术" hasFeedback={true}>
-              <RemoteSelect form={this.props.form} fieldName="surgeries" api=""/>
+              <RemoteSelect form={this.props.form} fieldName="surgeries" dataType="surgery"/>
           </FormItem>
 
           <FormItem {...formItemLayoutOfRemoteSelect} label="术者" hasFeedback={true}>
-              <RemoteSelect form={this.props.form} fieldName="surgeons" api=""/>
+              <RemoteSelect form={this.props.form} fieldName="surgeons" dataType="doctor"/>
           </FormItem>
 
           <FormItem {...formItemLayoutOfRemoteSelect} label="助手" hasFeedback={true}>
-              <RemoteSelect form={this.props.form} fieldName="helpers" api=""/>
+              <RemoteSelect form={this.props.form} fieldName="helpers" dataType="doctor"/>
           </FormItem>
 
         </Form>

@@ -32,7 +32,7 @@ class RecordSearchForm_ extends React.Component {
       <Form
         onSubmit={this.handleSearch}
       >
-        <Row gutter={20}>
+        <Row gutter={10}>
           <Col span={5}>
             <FormItem>
               {getFieldDecorator('date')(
@@ -40,31 +40,38 @@ class RecordSearchForm_ extends React.Component {
               )}
             </FormItem>
           </Col>
-          <Col span={5}>
-            <FormItem>
-              {getFieldDecorator('surgeryName')(
-                <Input placeholder="手术名称" />
-              )}
-            </FormItem>
-          </Col>
-          <Col span={5}>
+          <Col span={4}>
             <FormItem>
               {getFieldDecorator('historyNum')(
                 <Input placeholder="病历号" />
               )}
             </FormItem>
           </Col>
-          <Col span={5}>
+          <Col span={4}>
             <FormItem>
-              {getFieldDecorator('name')(
+              {getFieldDecorator('patientName')(
                 <Input placeholder="病人姓名" />
               )}
             </FormItem>
           </Col>
           <Col span={4}>
             <FormItem>
-              {getFieldDecorator('doctorName')(
-                <Input placeholder="术者/助手姓名" />
+              {getFieldDecorator('surgeryName')(
+                <Input placeholder="手术名称" />
+              )}
+            </FormItem>
+          </Col>
+          <Col span={4}>
+            <FormItem>
+              {getFieldDecorator('surgeonName')(
+                <Input placeholder="术者姓名" />
+              )}
+            </FormItem>
+          </Col>
+          <Col span={3}>
+            <FormItem>
+              {getFieldDecorator('helperName')(
+                <Input placeholder="助手姓名" />
               )}
             </FormItem>
           </Col>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {ROLE, DOCTOR_LEVEL} from './../../App/PublicConstant.js';
+import {REGEX} from './../../App/PublicRegex.js';
 import { Form, Input, Select,Modal, Cascader} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -17,7 +18,7 @@ class DoctorEditModal_ extends React.Component {
       <Modal title="修改医师信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
           <FormItem {...formItemLayout} label="姓名">
-            {getFieldDecorator('name', { rules: [{ required: true, message: '请输入姓名' }]
+            {getFieldDecorator('name', { rules: [{ required: true, message: '请输入姓名' }, {pattern: REGEX.WITHOUT_SPECIAL_CHARACTER, message: '不能包括特殊字符*.?+$^[](){}|\/'}]
             })(
             <Input />
             )}
