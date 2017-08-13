@@ -20,7 +20,7 @@ class DoctorAddModal_ extends React.Component {
       <Modal title="添加医师" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
           <FormItem {...formItemLayout} label="姓名" hasFeedback={true}>
-            {getFieldDecorator('name', { rules: [{ required: true, message: '请输入姓名' }, {pattern: REGEX.WITHOUT_SPECIAL_CHARACTER, message: '不能包括特殊字符*.?+$^[](){}|\/'}]
+            {getFieldDecorator('name', { rules: [{ required: true, message: '请输入姓名' }, {pattern: REGEX.WITHOUT_SPECIAL_CHARACTER, message: '不能包括特殊字符,*.?+$^[](){}|\\/'}]
             })(
             <Input />
             )}

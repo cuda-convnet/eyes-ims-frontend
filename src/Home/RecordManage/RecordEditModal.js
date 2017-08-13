@@ -1,6 +1,9 @@
 import React from 'react';
-import {ROLE} from './../../App/PublicConstant.js';
-import { Form, Input, Select,Modal, Cascader, InputNumber} from 'antd';
+import moment from 'moment';
+import {ROLE, SESSION, DATE_FORMAT} from './../../App/PublicConstant.js';
+import {REGEX} from './../../App/PublicRegex.js';
+import RemoteSelect from './RemoteSelect.js';
+import { Form, Input, Select,Modal, Tag, Cascader, InputNumber, Row, Col, DatePicker, Radio} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -10,71 +13,80 @@ class RecordEditModal_ extends React.Component {
   render() {
 
     const formItemLayout = {labelCol: { xs: { span: 24 }, sm: { span: 7 },}, wrapperCol: { xs: { span: 24 }, sm: { span: 12 },}};
-
+    const formItemLayoutOfRemoteSelect = {labelCol: { xs: { span: 24 }, sm: { span: 5 },}, wrapperCol: { xs: { span: 24 }, sm: { span: 16 },}};
+    const formItemLayoutWithoutLabel = {wrapperCol: { xs: { span: 24 , offset: 0}, sm: { span: 12 , offset: 7},}};
 
     const { getFieldDecorator } = this.props.form;
     return (
       <Modal title="修改手术信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
-          <FormItem {...formItemLayout} label="代码" hasFeedback={true}>
-            {getFieldDecorator('code', { rules: [{ required: true, message: '请输入记录代码' }]
-            })(
-            <Input />
+
+          <h3 className="record-header">基本信息</h3>
+
+          <FormItem {...formItemLayout} label="手术日期" hasFeedback={true} >
+            {getFieldDecorator('date', {rules: [{ required: true, message: '请选择手术日期!' }], initialValue:  moment(new Date(), DATE_FORMAT)})(
+              <DatePicker style={{width: '100%'}}/>
             )}
           </FormItem>
-          <FormItem {...formItemLayout} label="名称" hasFeedback={true}>
-              {getFieldDecorator('name', { rules: [{ required: true, message: '请输入记录名称' }],
+
+
+          <FormItem {...formItemLayout} label="类型">
+            {getFieldDecorator('type', {rules: [{ required: true, message: '请选择检查类型!' }], initialValue: "门诊"})(
+            <Radio.Group>
+              <Radio.Button value="门诊">门诊</Radio.Button>
+              <Radio.Button value="住院">住院</Radio.Button>
+            </Radio.Group>
+            )}
+          </FormItem>
+
+          <FormItem {...formItemLayout} label="病历号" hasFeedback={true}>
+              {getFieldDecorator('historyNum', { rules: [{ required: true, message: '请输入病历号' },{pattern: REGEX.NUMBER10, message:'病历号由10位数字组成'}],
               })(
               <Input />
               )}
           </FormItem>
-          <FormItem {...formItemLayout} label="别名" hasFeedback={true}>
-              {getFieldDecorator('alias', { rules: [{ required: true, message: '请输入记录别名' }],
+          <FormItem {...formItemLayout} label="姓名" hasFeedback={true}>
+              {getFieldDecorator('name', { rules: [{ required: true, message: '请输入姓名' },{pattern: REGEX.CHINESE5_OR_LETTER10, message: '姓名不能多于5个汉字或10个英文字母'}],
               })(
               <Input />
               )}
           </FormItem>
-          <FormItem {...formItemLayout} label="价格" hasFeedback={true}>
-              {getFieldDecorator('price', { rules: [{ required: true, message: '请输入记录价格' }], initialValue: 0,
-              })(
-              <InputNumber  min={0} precision={2} style={{width: '100%'}}/>
+          <FormItem {...formItemLayout} label="性别">
+            {getFieldDecorator('sex', {rules: [{ required: true, message: '请选择性别!' }], initialValue: "男"})(
+            <Radio.Group>
+              <Radio.Button value="男">男</Radio.Button>
+              <Radio.Button value="女">女</Radio.Button>
+            </Radio.Group>
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="年龄" hasFeedback={true}>
+              {getFieldDecorator('age', { rules: [{ required: true, message: '请输入年龄' }]})(
+              <InputNumber step={1} min={0} max={99} precision={0} style={{width: '100%'}}/>
               )}
           </FormItem>
-          <FormItem {...formItemLayout} label="子类" hasFeedback={true}>
-              {getFieldDecorator('category', { rules: [{ required: true, message: '请输入记录子类' }], initialValue: '眼科手术',
-              })(
-              <Input />
-              )}
+          <FormItem {...formItemLayout} label="眼别">
+            {getFieldDecorator('eye', {rules: [{ required: true, message: '请选择眼别!' }], initialValue: "左"})(
+            <Radio.Group>
+              <Radio.Button value="左">左</Radio.Button>
+              <Radio.Button value="右">右</Radio.Button>
+            </Radio.Group>
+            )}
           </FormItem>
-          <FormItem {...formItemLayout} label="收费代码" hasFeedback={true}>
-              {getFieldDecorator('chargeCode', { rules: [{ required: true, message: '请输入收费代码' }],
-              })(
-              <Input />
-              )}
+
+          <h3 className="record-header">详细信息</h3>
+
+          <FormItem {...formItemLayoutOfRemoteSelect} label="手术" hasFeedback={true}>
+              <RemoteSelect form={this.props.form} fieldName="surgeries" dataType="surgery"/>
           </FormItem>
-          <FormItem {...formItemLayout} label="收费名称" hasFeedback={true}>
-              {getFieldDecorator('chargeName', { rules: [{ required: true, message: '请输入收费名称' }],
-              })(
-              <Input />
-              )}
+
+          <FormItem {...formItemLayoutOfRemoteSelect} label="术者" hasFeedback={true}>
+              <RemoteSelect form={this.props.form} fieldName="surgeons" dataType="doctor"/>
           </FormItem>
-          <FormItem {...formItemLayout} label="数量" hasFeedback={true}>
-              {getFieldDecorator('chargeCount', { rules: [{ required: true, message: '请输入数量' }]})(
-              <InputNumber step={1} min={0} precision={1} style={{width: '100%'}}/>
-              )}
+
+          <FormItem {...formItemLayoutOfRemoteSelect} label="助手" hasFeedback={true}>
+              <RemoteSelect form={this.props.form} fieldName="helpers" dataType="doctor"/>
           </FormItem>
-          <FormItem {...formItemLayout} label="收费价格" hasFeedback={true}>
-              {getFieldDecorator('chargePrice', { rules: [{ required: true, message: '请输入收费价格' }]
-              })(
-              <InputNumber  min={0} precision={2} style={{width: '100%'}}/>
-              )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="特需价格" hasFeedback={true}>
-              {getFieldDecorator('extraPrice', { rules: [{ required: true, message: '请输入特需价格' }]
-              })(
-              <InputNumber  min={0} precision={2} style={{width: '100%'}}/>
-              )}
-          </FormItem>
+
         </Form>
       </Modal>
     );

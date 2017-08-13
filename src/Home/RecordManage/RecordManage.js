@@ -1,6 +1,7 @@
 import './RecordManage.css';
-import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE} from './../../App/PublicConstant.js';
+import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE, DATE_FORMAT} from './../../App/PublicConstant.js';
 import {formatDate} from './../../App/PublicUtil.js';
+import moment from 'moment';
 import React from 'react';
 import {Tabs, Table, message, Popconfirm, BackTop, Button} from 'antd';
 import RecordEditModal from './RecordEditModal.js';
@@ -124,20 +125,25 @@ class RecordManage extends React.Component {
             console.log(result);
             if(result.code === RESULT.SUCCESS) {
 
-                let record = result.content;
+                let record = result.content.record;
+
+                //将surgeries、surgeons、helpers转换成多选项可识别的数据格式
+                let surgeries = result.content.surgeries.map((surgery) => ({key: surgery.surgeryId.toString(), label: surgery.surgeryName}));
+                let surgeons = result.content.surgeons.map((surgeon) => ({key: surgeon.doctorId.toString(), label: surgeon.doctorName}));
+                let helpers = result.content.helpers.map((helper) => ({key: helper.doctorId.toString(), label: helper.doctorName}));
+
 
                 if(this.refs.recordEditForm == null) return;
-                this.refs.recordEditForm.setFieldsValue({ code: record.code,
-                                                           name: record.name,
-                                                           alias: record.alias,
-                                                           price: record.price,
-                                                           category: record.category,
-                                                           chargeCode: record.chargeCode,
-                                                           chargeName: record.chargeName,
-                                                           chargeCount: record.chargeCount,
-                                                           chargePrice: record.chargePrice,
-                                                           extraPrice: record.extraPrice,
-                                                           level: record.level});
+                this.refs.recordEditForm.setFieldsValue({date: moment(formatDate(record.date), DATE_FORMAT),
+                                                         type: record.type,
+                                                         historyNum: record.historyNum,
+                                                         name: record.name,
+                                                         sex: record.sex,
+                                                         age: Number(record.age),
+                                                         eye: record.eye,
+                                                         surgeries: surgeries,
+                                                         surgeons: surgeons,
+                                                         helpers: helpers});
 
 
                 return;
@@ -177,17 +183,16 @@ class RecordManage extends React.Component {
             contentType: 'application/json',
             dataType : 'json',
             data : JSON.stringify({recordId: this.recordId,
-                                   code: values.code,
+                                   date: formatDate(values.date),
+                                   type: values.type,
+                                   historyNum: values.historyNum,
                                    name: values.name,
-                                   alias: values.alias,
-                                   price: values.price.toFixed(2),
-                                   category: values.category,
-                                   chargeCode: values.chargeCode,
-                                   chargeName: values.chargeName,
-                                   chargeCount: values.chargeCount.toFixed(2),
-                                   chargePrice: values.chargePrice.toFixed(2),
-                                   extraPrice: values.extraPrice.toFixed(2),
-                                   level: values.level }),
+                                   sex: values.sex,
+                                   age: Number(values.age),
+                                   eye: values.eye,
+                                   surgeries: values.surgeries,
+                                   surgeons: values.surgeons,
+                                   helpers: values.helpers}),
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
               console.log(result);
@@ -288,6 +293,10 @@ class RecordManage extends React.Component {
       dataIndex: 'historyNum',
       key: 'historyNum'
     },{
+      title: '类型',
+      dataIndex: 'type',
+      key: 'type'
+    },{
       title: '姓名',
       dataIndex: 'name',
       key: 'name'
@@ -304,31 +313,31 @@ class RecordManage extends React.Component {
       dataIndex: 'eye',
       key: 'eye',
     },{
-      title: '手术日期',
+      title: '日期',
       dataIndex: 'date',
       key: 'date',
       render: (date) => formatDate(date)
     },{
-      title: '所做手术',
+      title: '所做手术/价格',
       dataIndex: 'surgeries',
       key: 'surgeries',
-      render: (surgeries) => <span>{surgeries.split(',').map((surgery) => <span>{surgery}<br/></span>)}</span>
+      render: (surgeries) => surgeries !== null ? <span>{surgeries.split(',').map((surgery, index) => <span key={index}>{surgery}<br/></span>)}</span> : null
     },{
-      title: '术者',
+      title: '术者/工作量',
       dataIndex: 'surgeons',
       key: 'surgeons',
-      render: (surgeons) => <span>{surgeons.split(',').map((surgeon) => <span>{surgeon}<br/></span>)}</span>
+      render: (surgeons) => surgeons !== null ? <span>{surgeons.split(',').map((surgeon, index) => <span key={index}>{surgeon}<br/></span>)}</span> : null
     },{
-      title: '助手',
+      title: '助手/工作量',
       dataIndex: 'helpers',
       key: 'helpers',
-      render: (helpers) => <span>{helpers.split(',').map((helper) => <span>{helper}<br/></span>)}</span>
+      render: (helpers) => helpers !== null ? <span>{helpers.split(',').map((helper, index) => <span key={index}>{helper}<br/></span>)}</span> : null
     }, {
       title: '操作',
       key: 'action',
       render: (record) => (
         <span>
-          <a onClick={() => this.showRecordEditModal(record)}>查看</a>
+          <a href="javascript:void(0);">详情</a>
           <span className="ant-divider" />
           <a onClick={() => this.showRecordEditModal(record)}>修改</a>
           {

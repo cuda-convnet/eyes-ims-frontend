@@ -24,7 +24,7 @@ class SurgeryEditModal_ extends React.Component {
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="名称" hasFeedback={true}>
-              {getFieldDecorator('name', { rules: [{ required: true, message: '请输入医嘱名称' }, {pattern: REGEX.WITHOUT_SPECIAL_CHARACTER, message: '不能包括特殊字符*.?+$^[](){}|\/'}],
+              {getFieldDecorator('name', { rules: [{ required: true, message: '请输入医嘱名称' }, {pattern: REGEX.WITHOUT_SPECIAL_CHARACTER, message: '不能包括特殊字符,*.?+$^[](){}|\\/'}],
               })(
               <Input />
               )}

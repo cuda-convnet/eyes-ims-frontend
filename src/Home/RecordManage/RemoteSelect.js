@@ -43,10 +43,7 @@ class RemoteSelect extends React.Component {
               return;
             }
 
-            const data = result.content.map(record => ({
-              text: record.name,
-              value: record.id
-            }));
+            const data = result.content.map(record => ({ text: record.name, value: record.id}));
 
             this.setState({ data ,fetching: false});
         }
