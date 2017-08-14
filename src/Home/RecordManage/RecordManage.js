@@ -17,7 +17,7 @@ class RecordManage extends React.Component {
 
     //手术记录相关
     recordData: [],
-    recordPager: {pageSize: PAGE_SIZE, total: 0},
+    recordPager: {pageSize: PAGE_SIZE, total: 0, showTotal: (total) => '共 ' + total + ' 条'},
     adviserAndManagerData: [],
 
     recordTableLoading: false,
@@ -223,7 +223,17 @@ class RecordManage extends React.Component {
   /**
   * 添加手术记录对话框
   **/
-  showRecordAddModal = (record) => this.setState({ recordAddModalVisible: true})
+  showRecordAddModal = (record) => {
+
+    this.setState({ recordAddModalVisible: true});
+
+    //病历号、姓名、性别、年龄 项归零
+    this.refs.recordAddForm.setFieldsValue({type: '门诊',
+                                            historyNum: '0000000000',
+                                            name: '',
+                                            sex: '男',
+                                            age: ''});
+  }
 
   closeRecordAddModal = () => this.setState({ recordAddModalVisible: false})
 

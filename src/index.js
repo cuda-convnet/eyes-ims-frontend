@@ -43,7 +43,7 @@ const certifyAccess = function(nextState, replace){
     //判断当前用户的role是否能进入targetUrl页面
     let targetUrl = "/" + nextState.location.pathname.split('/')[1];
     switch(targetUrl) {
-      case ROUTE.LOGIN.URL_PREFIX:certifyRole(replace, role, ROUTE.MEMBER_LOGIN.PERMISSION);break;
+      case ROUTE.LOGIN.URL_PREFIX:certifyRole(replace, role, ROUTE.LOGIN.PERMISSION);break;
       case ROUTE.REGISTER.URL_PREFIX:certifyRole(replace, role, ROUTE.REGISTER.PERMISSION);break;
       case ROUTE.FIND_PASSWORD.URL_PREFIX:certifyRole(replace, role, ROUTE.FIND_PASSWORD.PERMISSION);break;
       case ROUTE.HOME.URL_PREFIX:certifyRole(replace, role, ROUTE.HOME.PERMISSION);break;

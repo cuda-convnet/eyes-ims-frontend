@@ -15,7 +15,7 @@ class UserManage extends React.Component {
 
     //用户相关
     userData: [],
-    userPager: {pageSize: PAGE_SIZE, total: 0},
+    userPager: {pageSize: PAGE_SIZE, total: 0, showTotal: (total) => '共 ' + total + ' 条'},
 
     userTableLoading: false,
     userEditModalVisible: false,

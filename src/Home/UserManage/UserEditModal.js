@@ -31,8 +31,7 @@ class UserEditModal_ extends React.Component {
               <Select>
                 <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
                 <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
-                <Option value={ROLE.EMPLOYEE_HANDLER}>{ROLE.EMPLOYEE_HANDLER}</Option>
-                <Option value={ROLE.EMPLOYEE_VISITOR}>{ROLE.EMPLOYEE_VISITOR}</Option>
+                <Option value={ROLE.EMPLOYEE_DOCTOR}>{ROLE.EMPLOYEE_DOCTOR}</Option>
               </Select>
             )}
           </FormItem>

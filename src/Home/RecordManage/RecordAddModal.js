@@ -10,6 +10,17 @@ const Option = Select.Option;
 //医师编辑对话框的表单
 class RecordAddModal_ extends React.Component {
 
+  //点击门诊时自动填充病历号为0000000000,且置为disabled
+  onTypeChange = (e) => {
+
+    let type = e.target.value;
+    if(type === '门诊') {
+      this.props.form.setFieldsValue({historyNum: '0000000000'});
+    } else {
+      this.props.form.setFieldsValue({historyNum: ''});
+    }
+  }
+
   render() {
 
     const role = sessionStorage.getItem(SESSION.ROLE);
@@ -34,15 +45,16 @@ class RecordAddModal_ extends React.Component {
 
           <FormItem {...formItemLayout} label="类型">
             {getFieldDecorator('type', {rules: [{ required: true, message: '请选择检查类型!' }], initialValue: "门诊"})(
-            <Radio.Group>
+            <Radio.Group onChange={this.onTypeChange}>
               <Radio.Button value="门诊">门诊</Radio.Button>
               <Radio.Button value="住院">住院</Radio.Button>
+              <Radio.Button value="一日病房">一日病房</Radio.Button>
             </Radio.Group>
             )}
           </FormItem>
 
           <FormItem {...formItemLayout} label="病历号" hasFeedback={true}>
-              {getFieldDecorator('historyNum', { rules: [{ required: true, message: '请输入病历号' },{pattern: REGEX.NUMBER10, message:'病历号由10位数字组成'}],
+              {getFieldDecorator('historyNum', { rules: [{ required: true, message: '请输入病历号' },{pattern: REGEX.NUMBER10, message:'病历号由10位数字组成'}], initialValue: "0000000000"
               })(
               <Input />
               )}
@@ -70,6 +82,7 @@ class RecordAddModal_ extends React.Component {
             {getFieldDecorator('eye', {rules: [{ required: true, message: '请选择眼别!' }], initialValue: "左"})(
             <Radio.Group>
               <Radio.Button value="左">左</Radio.Button>
+              <Radio.Button value="双">双</Radio.Button>
               <Radio.Button value="右">右</Radio.Button>
             </Radio.Group>
             )}

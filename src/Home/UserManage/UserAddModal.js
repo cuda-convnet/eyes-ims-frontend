@@ -32,12 +32,11 @@ class UserAddModal_ extends React.Component {
               )}
           </FormItem>
           <FormItem {...formItemLayout} label="角色级别" hasFeedback={true}>
-            {getFieldDecorator('role', { rules: [{ required: true, message: '请选择角色'}], initialValue: ROLE.EMPLOYEE_VISITOR})(
+            {getFieldDecorator('role', { rules: [{ required: true, message: '请选择角色'}], initialValue: ROLE.EMPLOYEE_DOCTOR})(
               <Select>
                 <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
                 <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
-                <Option value={ROLE.EMPLOYEE_HANDLER}>{ROLE.EMPLOYEE_HANDLER}</Option>
-                <Option value={ROLE.EMPLOYEE_VISITOR}>{ROLE.EMPLOYEE_VISITOR}</Option>
+                <Option value={ROLE.EMPLOYEE_DOCTOR}>{ROLE.EMPLOYEE_DOCTOR}</Option>
               </Select>
             )}
           </FormItem>

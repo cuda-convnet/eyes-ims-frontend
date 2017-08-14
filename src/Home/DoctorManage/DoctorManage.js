@@ -15,7 +15,7 @@ class DoctorManage extends React.Component {
 
     //医师相关
     doctorData: [],
-    doctorPager: {pageSize: PAGE_SIZE, total: 0},
+    doctorPager: {pageSize: PAGE_SIZE, total: 0, showTotal: (total) => '共 ' + total + ' 条'},
 
     doctorTableLoading: false,
     doctorEditModalVisible: false,
@@ -291,6 +291,12 @@ class DoctorManage extends React.Component {
             <TabPane tab="医师管理" key="1">
               <DoctorSearchForm ref="doctorSearchForm" handleSearchDoctorList={this.handleSearchDoctorList}/>
               <Table className='doctor-table' columns={doctorColumns} dataSource={this.state.doctorData} pagination={this.state.doctorPager} onChange={this.changeDoctorPager} rowKey='id' loading={this.state.doctorTableLoading}/>
+            </TabPane>
+            <TabPane tab="工作量系数管理" key="2">
+              主任：4<br/>
+              副主任：3<br/>
+              主治医师：2<br/>
+              住院医师：1
             </TabPane>
           </Tabs>
           <DoctorEditModal ref="doctorEditForm" visible={this.state.doctorEditModalVisible} confirmLoading={this.state.confirmDoctorLoading} onCancel={this.closeDoctorEditModal} onConfirm={this.confirmDoctorEditModal} />

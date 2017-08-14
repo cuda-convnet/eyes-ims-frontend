@@ -38,7 +38,7 @@ class VerticalRegisterForm_ extends React.Component {
                 console.log(result);
                 if(result.code === RESULT.SUCCESS) {
                     message.success(result.reason, 2);
-                    browserHistory.push(ROUTE.MEMBER_LOGIN.URL);
+                    browserHistory.push(ROUTE.LOGIN.URL);
                     return;
                 } else {
 

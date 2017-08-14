@@ -15,7 +15,7 @@ class SurgeryManage extends React.Component {
 
     //手术医嘱相关
     surgeryData: [],
-    surgeryPager: {pageSize: PAGE_SIZE, total: 0},
+    surgeryPager: {pageSize: PAGE_SIZE, total: 0, showTotal: (total) => '共 ' + total + ' 条'},
     adviserAndManagerData: [],
 
     surgeryTableLoading: false,
@@ -349,6 +349,13 @@ class SurgeryManage extends React.Component {
             <TabPane tab="手术医嘱管理" key="1">
               <SurgerySearchForm ref="surgerySearchForm" handleSearchSurgeryList={this.handleSearchSurgeryList}/>
               <Table className='surgery-table' columns={surgeryColumns} dataSource={this.state.surgeryData} pagination={this.state.surgeryPager} onChange={this.changeSurgeryPager} rowKey='id' loading={this.state.surgeryTableLoading}/>
+            </TabPane>
+            <TabPane tab="工作量系数管理" key="2">
+              一级：1<br/>
+              二级：2<br/>
+              三级：3<br/>
+              四级：4<br/>
+              五级：5
             </TabPane>
           </Tabs>
           <SurgeryEditModal ref="surgeryEditForm" visible={this.state.surgeryEditModalVisible} confirmLoading={this.state.confirmSurgeryLoading} onCancel={this.closeSurgeryEditModal} onConfirm={this.confirmSurgeryEditModal}  />

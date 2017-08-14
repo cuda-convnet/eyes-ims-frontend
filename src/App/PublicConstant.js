@@ -17,8 +17,7 @@ const DATE_FORMAT = 'YYYY-MM-DD'
 const ROLE = {
   EMPLOYEE_ADMIN : '系统管理员',
   EMPLOYEE_INPUTER : '数据录入员',
-  EMPLOYEE_HANDLER : '数据处理员',
-  EMPLOYEE_VISITOR : '数据阅览员'
+  EMPLOYEE_DOCTOR : '医师'
 }
 
 //路由(跳转地址 和 可访问的角色,[]表示所有角色均可访问)
@@ -27,8 +26,6 @@ const ROUTE = {
   MAIN: {URL: '/main', PERMISSION: []},
   HELP: {URL: '/help', PERMISSION: []},
   LOGIN: {URL: '/login', URL_PREFIX:'/login', PERMISSION: []},
-  MEMBER_LOGIN: {URL: '/member_login', URL_PREFIX:'/member_login', PERMISSION: []},
-  EMPLOYEE_LOGIN: {URL: '/employee_login', URL_PREFIX:'/employee_login', PERMISSION: []},
   REGISTER: {URL: '/register', URL_PREFIX:'/register', PERMISSION: []},
   FIND_PASSWORD: {URL: '/find_password', URL_PREFIX:'/find_password', PERMISSION: []},
 
