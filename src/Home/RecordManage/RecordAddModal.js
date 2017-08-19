@@ -87,6 +87,16 @@ class RecordAddModal_ extends React.Component {
             </Radio.Group>
             )}
           </FormItem>
+          <FormItem {...formItemLayout} label="地点">
+            {getFieldDecorator('place', {rules: [{ required: true, message: '请选择手术地点!' }], initialValue: "西区"})(
+            <Radio.Group>
+              <Radio.Button value="西区">西区</Radio.Button>
+              <Radio.Button value="南区">南区</Radio.Button>
+              <Radio.Button value="东区">东区</Radio.Button>
+              <Radio.Button value="特需">特需</Radio.Button>
+            </Radio.Group>
+            )}
+          </FormItem>
 
           <h3 className="record-header">详细信息</h3>
 

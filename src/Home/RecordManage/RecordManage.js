@@ -45,9 +45,10 @@ class RecordManage extends React.Component {
             url : SERVER + '/api/record/list',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({surgeryName: values.surgeryName,
-                                   historyNum : values.historyNum,
+            data : JSON.stringify({historyNum : values.historyNum,
                                    patientName : values.patientName,
+                                   place: values.place,
+                                   surgeryName: values.surgeryName,
                                    surgeonName : values.surgeonName,
                                    helperName : values.helperName,
                                    beginTime: values.date !== undefined ? formatDate(values.date[0]) : undefined,
@@ -172,6 +173,32 @@ class RecordManage extends React.Component {
     //请求修改手术记录
     this.refs.recordEditForm.validateFields((err, values) => {
       if(!err) {
+
+        /**
+        *输入字段合法性检测
+        */
+
+        //检查手术>0
+        if(values.surgeries === undefined || values.surgeries.length <= 0) {
+
+          message.error('请至少添加一项手术', 2);
+          return;
+        }
+        //检查术者!=0
+        if(values.surgeons === undefined) {
+
+          message.error('请至少添加一位术者', 2);
+          return;
+        }
+        //检查术者!>2
+        if(values.surgeons.length > 2) {
+
+          message.error('术者不能多于2位', 2);
+          return;
+        }
+
+
+
         console.log('修改手术记录', values);
 
         //显示加载圈
@@ -190,6 +217,7 @@ class RecordManage extends React.Component {
                                    sex: values.sex,
                                    age: Number(values.age),
                                    eye: values.eye,
+                                   place: values.place,
                                    surgeries: values.surgeries,
                                    surgeons: values.surgeons,
                                    helpers: values.helpers}),
@@ -242,6 +270,31 @@ class RecordManage extends React.Component {
     //请求修改职员
     this.refs.recordAddForm.validateFields((err, values) => {
       if(!err) {
+
+        /**
+        *输入字段合法性检测
+        */
+
+        //检查手术>0
+        if(values.surgeries === undefined || values.surgeries.length <= 0) {
+
+          message.error('请至少添加一项手术', 2);
+          return;
+        }
+        //检查术者!=0
+        if(values.surgeons === undefined) {
+
+          message.error('请至少添加一位术者', 2);
+          return;
+        }
+        //检查术者!>2
+        if(values.surgeons.length > 2) {
+
+          message.error('术者不能多于2位', 2);
+          return;
+        }
+
+
         console.log('添加手术记录', values);
 
         //显示加载圈
@@ -258,6 +311,7 @@ class RecordManage extends React.Component {
                                    sex: values.sex,
                                    age: Number(values.age),
                                    eye: values.eye,
+                                   place: values.place,
                                    surgeries: values.surgeries,
                                    surgeons: values.surgeons,
                                    helpers: values.helpers}),
@@ -301,15 +355,21 @@ class RecordManage extends React.Component {
     const recordColumns = [{
       title: '病历号',
       dataIndex: 'historyNum',
-      key: 'historyNum'
+      key: 'historyNum',
+      fixed: 'left',
+      width: 90
     },{
       title: '类型',
       dataIndex: 'type',
-      key: 'type'
+      key: 'type',
+      fixed: 'left',
+      width: 50
     },{
       title: '姓名',
       dataIndex: 'name',
-      key: 'name'
+      key: 'name',
+      fixed: 'left',
+      width: 60
     },{
       title: '性别',
       dataIndex: 'sex',
@@ -322,6 +382,10 @@ class RecordManage extends React.Component {
       title: '眼别',
       dataIndex: 'eye',
       key: 'eye',
+    },{
+      title: '地点',
+      dataIndex: 'place',
+      key: 'place',
     },{
       title: '日期',
       dataIndex: 'date',
@@ -345,10 +409,10 @@ class RecordManage extends React.Component {
     }, {
       title: '操作',
       key: 'action',
+      fixed: 'right',
+      width: 80,
       render: (record) => (
         <span>
-          <a href="javascript:void(0);">详情</a>
-          <span className="ant-divider" />
           <a onClick={() => this.showRecordEditModal(record)}>修改</a>
           {
             sessionStorage.getItem(SESSION.ROLE) === ROLE.EMPLOYEE_ADMIN
@@ -373,7 +437,7 @@ class RecordManage extends React.Component {
                 tabBarExtraContent={<Button type="primary" onClick={this.showRecordAddModal}>添加手术记录</Button>}>
             <TabPane tab="手术记录管理" key="1">
               <RecordSearchForm ref="recordSearchForm" handleSearchRecordList={this.handleSearchRecordList}/>
-              <Table className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
+              <Table scroll={{ x: '140%'}} className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
             </TabPane>
           </Tabs>
           <RecordEditModal ref="recordEditForm" visible={this.state.recordEditModalVisible} confirmLoading={this.state.confirmRecordLoading} onCancel={this.closeRecordEditModal} onConfirm={this.confirmRecordEditModal}  />

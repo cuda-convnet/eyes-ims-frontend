@@ -5,6 +5,7 @@ import {Tabs, Table, message, Popconfirm, BackTop, Button} from 'antd';
 import DoctorEditModal from './DoctorEditModal.js';
 import DoctorSearchForm from './DoctorSearchForm.js';
 import DoctorAddModal from './DoctorAddModal.js';
+import DoctorLevelForm from './DoctorLevelForm.js';
 import $ from 'jquery';
 const TabPane = Tabs.TabPane;
 
@@ -266,6 +267,8 @@ class DoctorManage extends React.Component {
       key: 'action',
       render: (record) => (
         <span>
+          <a onClick={() => this.showDoctorEditModal(record)}>查看</a>
+          <span className="ant-divider" />
           <a onClick={() => this.showDoctorEditModal(record)}>修改</a>
           {
             sessionStorage.getItem(SESSION.ROLE) === ROLE.EMPLOYEE_ADMIN
@@ -293,10 +296,7 @@ class DoctorManage extends React.Component {
               <Table className='doctor-table' columns={doctorColumns} dataSource={this.state.doctorData} pagination={this.state.doctorPager} onChange={this.changeDoctorPager} rowKey='id' loading={this.state.doctorTableLoading}/>
             </TabPane>
             <TabPane tab="工作量系数管理" key="2">
-              主任：4<br/>
-              副主任：3<br/>
-              主治医师：2<br/>
-              住院医师：1
+              <DoctorLevelForm />
             </TabPane>
           </Tabs>
           <DoctorEditModal ref="doctorEditForm" visible={this.state.doctorEditModalVisible} confirmLoading={this.state.confirmDoctorLoading} onCancel={this.closeDoctorEditModal} onConfirm={this.confirmDoctorEditModal} />

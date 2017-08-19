@@ -1,5 +1,5 @@
 import {SESSION, ROUTE} from './App/PublicConstant.js';
-import {clearSession, containsElement, isEmployee} from './App/PublicMethod.js'
+import {clearSession, containsElement} from './App/PublicMethod.js'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App/App.js';
@@ -47,7 +47,7 @@ const certifyAccess = function(nextState, replace){
       case ROUTE.REGISTER.URL_PREFIX:certifyRole(replace, role, ROUTE.REGISTER.PERMISSION);break;
       case ROUTE.FIND_PASSWORD.URL_PREFIX:certifyRole(replace, role, ROUTE.FIND_PASSWORD.PERMISSION);break;
       case ROUTE.HOME.URL_PREFIX:certifyRole(replace, role, ROUTE.HOME.PERMISSION);break;
-      case ROUTE.USER_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.EMPLOYEE_MANAGE.PERMISSION);break;
+      case ROUTE.USER_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.USER_MANAGE.PERMISSION);break;
       case ROUTE.DOCTOR_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.DOCTOR_MANAGE.PERMISSION);break;
       case ROUTE.SURGERY_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.SURGERY_MANAGE.PERMISSION);break;
       case ROUTE.RECORD_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.RECORD_MANAGE.PERMISSION);break;

@@ -1,6 +1,6 @@
 import './Home.css';
 import {SESSION, ROUTE, ROLE, STYLE, COLOR, FILE_SERVER, SERVER, RESULT} from './../App/PublicConstant.js';
-import {clearSession, isEmployee} from './../App/PublicMethod.js';
+import {clearSession} from './../App/PublicMethod.js';
 import React from 'react';
 import { Layout, Menu, Icon, Avatar, notification, Button, Tag, message} from 'antd';
 import {browserHistory} from 'react-router';
@@ -148,7 +148,8 @@ class Home extends React.Component {
         <Sider
           trigger={null}
           collapsible
-          collapsed={this.state.collapsed}>
+          collapsed={this.state.collapsed}
+          width={170}>
           <div className="logo"/>
           <Menu theme="dark" mode="inline" selectedKeys={[this.props.params.menuKey]} onClick={this.handleMenuItemClick}>
             <Menu.Item key={ROUTE.WELCOME.MENU_KEY}>

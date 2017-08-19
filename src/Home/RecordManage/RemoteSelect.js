@@ -48,21 +48,6 @@ class RemoteSelect extends React.Component {
             this.setState({ data ,fetching: false});
         }
     });
-
-
-    // fetch('https://randomuser.me/api/?results=5')
-    //   .then(response => response.json())
-    //   .then((body) => {
-    //     if (fetchId !== this.lastFetchId) { // for fetch callback order
-    //       return;
-    //     }
-    //     const data = body.results.map(user => ({
-    //       text: `${user.name.first} ${user.name.last}`,
-    //       value: user.login.username,
-    //       fetching: false,
-    //     }));
-    //     this.setState({ data });
-    //   });
   }
 
   handleChange = (value) => {
