@@ -1,5 +1,5 @@
 import './RecordManage.css';
-import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE, DATE_FORMAT} from './../../App/PublicConstant.js';
+import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE, DATE_FORMAT, FILE_SERVER} from './../../App/PublicConstant.js';
 import {formatDate} from './../../App/PublicUtil.js';
 import moment from 'moment';
 import React from 'react';
@@ -77,6 +77,46 @@ class RecordManage extends React.Component {
                 });
 
                 this.setState({ recordTableLoading: false});
+            }
+        });
+      }
+    });
+  }
+
+  //导出
+  handleExportRecordList = () => {
+
+    this.refs.recordSearchForm.validateFields((err, values) => {
+      if(!err) {
+
+        console.log('导出手术记录信息', values);
+        $.ajax({
+            url : SERVER + '/api/record/export',
+            type : 'POST',
+            contentType: 'application/json',
+            data : JSON.stringify({historyNum : values.historyNum,
+                                   patientName : values.patientName,
+                                   place: values.place,
+                                   surgeryName: values.surgeryName,
+                                   surgeonName : values.surgeonName,
+                                   helperName : values.helperName,
+                                   beginTime: values.date !== undefined ? formatDate(values.date[0]) : undefined,
+                                   endTime: values.date !== undefined ? formatDate(values.date[1]) : undefined}),
+            dataType : 'json',
+            beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
+            success : (result) => {
+
+                console.log(result);
+                if(result.code !== RESULT.SUCCESS) {
+                    message.error(result.reason, 2);
+                    return;
+                }
+
+                //下载
+                window.location.href = FILE_SERVER + result.content;
+
+                //查询
+                this.handleSearchRecordList(1);
             }
         });
       }
@@ -185,7 +225,7 @@ class RecordManage extends React.Component {
           return;
         }
         //检查术者!=0
-        if(values.surgeons === undefined) {
+        if(values.surgeons === undefined || values.surgeons.length <= 0) {
 
           message.error('请至少添加一位术者', 2);
           return;
@@ -282,7 +322,7 @@ class RecordManage extends React.Component {
           return;
         }
         //检查术者!=0
-        if(values.surgeons === undefined) {
+        if(values.surgeons === undefined || values.surgeons.length <= 0) {
 
           message.error('请至少添加一位术者', 2);
           return;
@@ -350,7 +390,7 @@ class RecordManage extends React.Component {
 
   render(){
 
-
+    const role = sessionStorage.getItem(SESSION.ROLE);
     //record表头//////////
     const recordColumns = [{
       title: '病历号',
@@ -392,17 +432,17 @@ class RecordManage extends React.Component {
       key: 'date',
       render: (date) => formatDate(date)
     },{
-      title: '所做手术/价格',
+      title: '所做手术 / 级别 / 价格',
       dataIndex: 'surgeries',
       key: 'surgeries',
       render: (surgeries) => surgeries !== null ? <span>{surgeries.split(',').map((surgery, index) => <span key={index}>{surgery}<br/></span>)}</span> : null
     },{
-      title: '术者/工作量',
+      title: role === ROLE.EMPLOYEE_ADMIN ? '术者 / 级别 / 工作量' : '术者 / 级别',
       dataIndex: 'surgeons',
       key: 'surgeons',
       render: (surgeons) => surgeons !== null ? <span>{surgeons.split(',').map((surgeon, index) => <span key={index}>{surgeon}<br/></span>)}</span> : null
     },{
-      title: '助手/工作量',
+      title: role === ROLE.EMPLOYEE_ADMIN ? '助手 / 级别 / 工作量' : '助手 / 级别',
       dataIndex: 'helpers',
       key: 'helpers',
       render: (helpers) => helpers !== null ? <span>{helpers.split(',').map((helper, index) => <span key={index}>{helper}<br/></span>)}</span> : null
@@ -436,8 +476,8 @@ class RecordManage extends React.Component {
           <Tabs defaultActiveKey={"1"}
                 tabBarExtraContent={<Button type="primary" onClick={this.showRecordAddModal}>添加手术记录</Button>}>
             <TabPane tab="手术记录管理" key="1">
-              <RecordSearchForm ref="recordSearchForm" handleSearchRecordList={this.handleSearchRecordList}/>
-              <Table scroll={{ x: '140%'}} className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
+              <RecordSearchForm ref="recordSearchForm" handleSearchRecordList={this.handleSearchRecordList} handleExportRecordList={this.handleExportRecordList}/>
+              <Table scroll={{ x: '160%'}} className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
             </TabPane>
           </Tabs>
           <RecordEditModal ref="recordEditForm" visible={this.state.recordEditModalVisible} confirmLoading={this.state.confirmRecordLoading} onCancel={this.closeRecordEditModal} onConfirm={this.confirmRecordEditModal}  />

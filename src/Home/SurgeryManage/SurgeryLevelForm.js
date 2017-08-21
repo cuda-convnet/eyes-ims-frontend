@@ -1,7 +1,7 @@
 import React from 'react';
 import {ROLE, SESSION, DOCTOR_LEVEL, SERVER, RESULT} from './../../App/PublicConstant.js';
 import {REGEX} from './../../App/PublicRegex.js';
-import { Form, Input, Select,Modal, Tag, Cascader, InputNumber, Row, Col, Button, message} from 'antd';
+import { Form, Input, Select,Modal, Tag, Cascader, InputNumber, Row, Col, Button, message, notification} from 'antd';
 import $ from 'jquery';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -31,19 +31,18 @@ class SurgeryLevelForm_ extends React.Component {
             }
 
             this.props.form.setFieldsValue({
-              surgeryFifthLevel: result.content.surgeryFifthLevel,
-              surgeryForthLevel: result.content.surgeryForthLevel,
-              surgeryThirdLevel: result.content.surgeryThirdLevel,
-              surgerySecondLevel: result.content.surgerySecondLevel,
-              surgeryFirstLevel: result.content.surgeryFirstLevel
+              surgeryFifthLevel: result.content['五级'],
+              surgeryForthLevel: result.content['四级'],
+              surgeryThirdLevel: result.content['三级'],
+              surgerySecondLevel: result.content['二级'],
+              surgeryFirstLevel: result.content['一级'],
             });
         }
     });
   }
 
-  handleUpdateSurgeryLevel = (e) => {
+  handleUpdateSurgeryLevel = () => {
 
-    e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if(!err) {
         console.log('更新手术级别的工作量系数', values);
@@ -55,11 +54,11 @@ class SurgeryLevelForm_ extends React.Component {
             url : SERVER + '/api/surgery/level',
             type : 'PUT',
             contentType: 'application/json',
-            data : JSON.stringify({ surgeryFifthLevel: values.surgeryFifthLevel,
-                                    surgeryForthLevel: values.surgeryForthLevel,
-                                    surgeryThirdLevel: values.surgeryThirdLevel,
-                                    surgerySecondLevel: values.surgerySecondLevel,
-                                    surgeryFirstLevel: values.surgeryFirstLevel}),
+            data : JSON.stringify({ '五级': values.surgeryFifthLevel,
+                                    '四级': values.surgeryForthLevel,
+                                    '三级': values.surgeryThirdLevel,
+                                    '二级': values.surgerySecondLevel,
+                                    '一级': values.surgeryFirstLevel}),
             dataType : 'json',
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
@@ -81,6 +80,15 @@ class SurgeryLevelForm_ extends React.Component {
     });
   }
 
+  showUpdateSurgeryLevelNotification = (e) => {
+
+    e.preventDefault();
+
+    const btn = (<Button type="primary" size="small" onClick={this.handleUpdateSurgeryLevel}>确定</Button>);
+    const key = `open${Date.now()}`;
+    notification.open({ message: '您确定要更新手术的工作量级别系数吗?', btn, key, placement: 'topLeft' });
+  }
+
   componentDidMount = () => {
 
     this.requestSurgeryLevel();
@@ -95,7 +103,7 @@ class SurgeryLevelForm_ extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form className="login-form" style={{marginTop: 20}} onSubmit={this.handleUpdateSurgeryLevel}>
+      <Form className="login-form" style={{marginTop: 20}} onSubmit={this.showUpdateSurgeryLevelNotification}>
         <FormItem {...formItemLayout} label="五级手术">
           {getFieldDecorator('surgeryFifthLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(

@@ -1,11 +1,11 @@
 
 //服务器地址
-const SERVER = 'http://localhost:8080' //yaochenkun
-//const SERVER = 'http://192.168.118.131:8080' //lab
+//const SERVER = 'http://localhost:8080' //yaochenkun
+const SERVER = 'http://192.168.118.131:8080' //lab
 
 //文件服务器地址
-const FILE_SERVER = 'http://localhost:8088' //yaochenkun
-//const FILE_SERVER = 'http://192.168.118.131:8088' //lab
+//const FILE_SERVER = 'http://localhost:8088' //yaochenkun
+const FILE_SERVER = 'http://192.168.118.131:8088' //lab
 
 
 
@@ -35,7 +35,7 @@ const ROUTE = {
     USER_MANAGE: {URL:'/user_manage/:menuKey', URL_PREFIX:'/user_manage', MENU_KEY: '2', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
     DOCTOR_MANAGE: {URL:'/doctor_manage/:menuKey', URL_PREFIX:'/doctor_manage', MENU_KEY: '3', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
     SURGERY_MANAGE: {URL:'/surgery_manage/:menuKey', URL_PREFIX:'/surgery_manage', MENU_KEY: '4', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
-    RECORD_MANAGE: {URL:'/record_manage/:menuKey', URL_PREFIX:'/record_manage', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN]}
+    RECORD_MANAGE: {URL:'/record_manage/:menuKey', URL_PREFIX:'/record_manage', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_INPUTER, ROLE.EMPLOYEE_DOCTOR]}
 }
 
 //医师级别

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ROLE} from './../../App/PublicConstant.js';
+import {ROLE, SESSION} from './../../App/PublicConstant.js';
 import { Form, Row, Col, Input, Button, Select, DatePicker} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -22,7 +22,7 @@ class RecordSearchForm_ extends React.Component {
 
   handleExport = (e) => {
     e.preventDefault();
-    this.props.handleSearchRecordList(1);
+    this.props.handleExportRecordList();
   }
 
   toggle = () => {
@@ -31,6 +31,8 @@ class RecordSearchForm_ extends React.Component {
   }
 
   render() {
+
+    const role = sessionStorage.getItem(SESSION.ROLE);
 
     const { getFieldDecorator } = this.props.form;
     return (
@@ -99,7 +101,7 @@ class RecordSearchForm_ extends React.Component {
         </Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Button type="primary" style={{float: 'left'}} onClick={this.handleExport}>导出</Button>
+            {role === ROLE.EMPLOYEE_ADMIN ? <Button type="primary" style={{float: 'left'}} onClick={this.handleExport}>导出</Button> : null}
             <Button type="primary" htmlType="submit">查询</Button>
             <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>清空</Button>
           </Col>

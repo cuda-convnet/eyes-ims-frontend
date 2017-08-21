@@ -293,10 +293,6 @@ class SurgeryManage extends React.Component {
       dataIndex: 'price',
       key: 'price',
     },{
-      title: '子类',
-      dataIndex: 'category',
-      key: 'category',
-    },{
       title: '收费代码',
       dataIndex: 'chargeCode',
       key: 'chargeCode',

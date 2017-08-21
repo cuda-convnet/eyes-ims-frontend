@@ -1,7 +1,7 @@
 import React from 'react';
 import {ROLE, SESSION, DOCTOR_LEVEL, SERVER, RESULT} from './../../App/PublicConstant.js';
 import {REGEX} from './../../App/PublicRegex.js';
-import { Form, Input, Select,Modal, Tag, Cascader, InputNumber, Row, Col, Button, message} from 'antd';
+import { Form, Input, Select,Modal, Tag, Cascader, InputNumber, Row, Col, Button, message, notification} from 'antd';
 import $ from 'jquery';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -32,18 +32,26 @@ class DoctorLevelForm_ extends React.Component {
             }
 
             this.props.form.setFieldsValue({
-              doctorHeadLevel: result.content.doctorHeadLevel,
-              doctorViceHeadLevel: result.content.doctorViceHeadLevel,
-              doctorTreatLevel: result.content.doctorTreatLevel,
-              doctorResidentLevel: result.content.doctorResidentLevel
+              doctorHeadLevel: result.content['主任医师'],
+              doctorViceHeadLevel: result.content['副主任医师'],
+              doctorTreatLevel: result.content['主治医师'],
+              doctorResidentLevel: result.content['住院医师'],
             });
         }
     });
   }
 
-  handleUpdateDoctorLevel = (e) => {
+  showUpdateDoctorLevelNotification = (e) => {
 
     e.preventDefault();
+
+    const btn = (<Button type="primary" size="small" onClick={this.handleUpdateDoctorLevel}>确定</Button>);
+    const key = `open${Date.now()}`;
+    notification.open({ message: '您确定要更新医师的工作量级别系数吗?', btn, key, placement: 'topLeft' });
+  }
+
+  handleUpdateDoctorLevel = () => {
+
     this.props.form.validateFields((err, values) => {
       if(!err) {
         console.log('更新医师级别的工作量系数', values);
@@ -55,10 +63,10 @@ class DoctorLevelForm_ extends React.Component {
             url : SERVER + '/api/doctor/level',
             type : 'PUT',
             contentType: 'application/json',
-            data : JSON.stringify({doctorHeadLevel: values.doctorHeadLevel,
-                                   doctorViceHeadLevel: values.doctorViceHeadLevel,
-                                   doctorTreatLevel: values.doctorTreatLevel,
-                                   doctorResidentLevel: values.doctorResidentLevel}),
+            data : JSON.stringify({'主任医师': values.doctorHeadLevel,
+                                   '副主任医师': values.doctorViceHeadLevel,
+                                   '主治医师': values.doctorTreatLevel,
+                                   '住院医师': values.doctorResidentLevel}),
             dataType : 'json',
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
@@ -96,7 +104,7 @@ class DoctorLevelForm_ extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form className="login-form" style={{marginTop: 20}} onSubmit={this.handleUpdateDoctorLevel}>
+      <Form className="login-form" style={{marginTop: 20}} onSubmit={this.showUpdateDoctorLevelNotification}>
         <FormItem {...formItemLayout} label="主任医师">
           {getFieldDecorator('doctorHeadLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
