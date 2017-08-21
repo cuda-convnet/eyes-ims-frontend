@@ -1,5 +1,5 @@
 .doctor-table{
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .doctor-table-delete{
@@ -13,4 +13,9 @@
 .doctor-table-pager {
   float:right;
   margin-top: 20px;
+}
+
+
+.doctor-detail-path {
+  margin-bottom: 20px;
 }

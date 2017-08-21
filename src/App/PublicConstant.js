@@ -34,6 +34,7 @@ const ROUTE = {
     WELCOME: {URL:'/home/:menuKey', URL_PREFIX:'/home', MENU_KEY: '1', PERMISSION: []},
     USER_MANAGE: {URL:'/user_manage/:menuKey', URL_PREFIX:'/user_manage', MENU_KEY: '2', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
     DOCTOR_MANAGE: {URL:'/doctor_manage/:menuKey', URL_PREFIX:'/doctor_manage', MENU_KEY: '3', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
+    DOCTOR_DETAIL: {URL:'/doctor_detail/:menuKey/:doctorId/:doctorName', URL_PREFIX:'/doctor_detail', MENU_KEY: '6', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_DOCTOR]},
     SURGERY_MANAGE: {URL:'/surgery_manage/:menuKey', URL_PREFIX:'/surgery_manage', MENU_KEY: '4', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
     RECORD_MANAGE: {URL:'/record_manage/:menuKey', URL_PREFIX:'/record_manage', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_INPUTER, ROLE.EMPLOYEE_DOCTOR]}
 }

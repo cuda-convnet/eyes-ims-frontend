@@ -18,7 +18,6 @@ class RecordManage extends React.Component {
     //手术记录相关
     recordData: [],
     recordPager: {pageSize: PAGE_SIZE, total: 0, showTotal: (total) => '共 ' + total + ' 条'},
-    adviserAndManagerData: [],
 
     recordTableLoading: false,
     recordEditModalVisible: false,

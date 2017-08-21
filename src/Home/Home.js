@@ -60,10 +60,10 @@ class Home extends React.Component {
     let layoutStyle;
 
     //主色调、用户管理、检查项目、原始资料、化验/医技数据、健康管理
-    if(role === ROLE.EMPLOYEE_ADMIN) layoutStyle = this.getLayoutStyle(COLOR.RED, STYLE.BLOCK, STYLE.BLOCK, STYLE.BLOCK, STYLE.BLOCK);
-    else if(role === ROLE.EMPLOYEE_INPUTER) layoutStyle = this.getLayoutStyle(COLOR.ORANGE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.BLOCK);
-    else if(role === ROLE.EMPLOYEE_DOCTOR) layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.BLOCK);
-    else layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE);
+    if(role === ROLE.EMPLOYEE_ADMIN) layoutStyle = this.getLayoutStyle(COLOR.RED, STYLE.BLOCK, STYLE.BLOCK, STYLE.NONE, STYLE.BLOCK, STYLE.BLOCK);
+    else if(role === ROLE.EMPLOYEE_INPUTER) layoutStyle = this.getLayoutStyle(COLOR.ORANGE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.BLOCK);
+    else if(role === ROLE.EMPLOYEE_DOCTOR) layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.BLOCK, STYLE.NONE, STYLE.BLOCK);
+    else layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE);
 
     return layoutStyle;
   }
@@ -71,6 +71,7 @@ class Home extends React.Component {
   getLayoutStyle(roleTagColor,
                  userManageMenuItemDisplay,
                  doctorManageMenuItemDisplay,
+                 doctorDetailMenuItemDisplay,
                  surgeryManageMenuItemDisplay,
                  recordManageMenuItemDisplay) {
 
@@ -78,6 +79,7 @@ class Home extends React.Component {
         roleTagColor: roleTagColor,
         userManageMenuItemDisplay: userManageMenuItemDisplay,
         doctorManageMenuItemDisplay: doctorManageMenuItemDisplay,
+        doctorDetailMenuItemDisplay: doctorDetailMenuItemDisplay,
         surgeryManageMenuItemDisplay: surgeryManageMenuItemDisplay,
         recordManageMenuItemDisplay: recordManageMenuItemDisplay
       };
@@ -88,11 +90,14 @@ class Home extends React.Component {
 
   handleMenuItemClick = (e) => {
 
+    const userId = sessionStorage.getItem(SESSION.USER_ID);
+    const userName = sessionStorage.getItem(SESSION.NAME);
     let targetUrl = ROUTE.WELCOME.URL_PREFIX + "/" + ROUTE.WELCOME.MENU_KEY;
     switch(e.key) {
       case ROUTE.WELCOME.MENU_KEY: targetUrl = ROUTE.WELCOME.URL_PREFIX + "/" + ROUTE.WELCOME.MENU_KEY; break;
       case ROUTE.USER_MANAGE.MENU_KEY: targetUrl = ROUTE.USER_MANAGE.URL_PREFIX + "/" + ROUTE.USER_MANAGE.MENU_KEY; break;
       case ROUTE.DOCTOR_MANAGE.MENU_KEY: targetUrl = ROUTE.DOCTOR_MANAGE.URL_PREFIX + "/" + ROUTE.DOCTOR_MANAGE.MENU_KEY; break;
+      case ROUTE.DOCTOR_DETAIL.MENU_KEY: targetUrl = ROUTE.DOCTOR_DETAIL.URL_PREFIX + "/" + ROUTE.DOCTOR_DETAIL.MENU_KEY + "/" + userId + "/" + userName; break;
       case ROUTE.SURGERY_MANAGE.MENU_KEY: targetUrl = ROUTE.SURGERY_MANAGE.URL_PREFIX + "/" + ROUTE.SURGERY_MANAGE.MENU_KEY; break;
       case ROUTE.RECORD_MANAGE.MENU_KEY: targetUrl = ROUTE.RECORD_MANAGE.URL_PREFIX + "/" + ROUTE.RECORD_MANAGE.MENU_KEY; break;
       default:;break;
@@ -164,12 +169,16 @@ class Home extends React.Component {
               <Icon type="idcard" className="menu-item-font"/>
               <span className="nav-text menu-item-font">医师管理</span>
             </Menu.Item>
+            <Menu.Item key={ROUTE.DOCTOR_DETAIL.MENU_KEY} style={{display: layoutStyle.doctorDetailMenuItemDisplay}}>
+              <Icon type="idcard" className="menu-item-font"/>
+              <span className="nav-text menu-item-font">个人手术记录</span>
+            </Menu.Item>
             <Menu.Item key={ROUTE.SURGERY_MANAGE.MENU_KEY} style={{display: layoutStyle.surgeryManageMenuItemDisplay}}>
               <Icon type="medicine-box" className="menu-item-font"/>
               <span className="nav-text menu-item-font">手术医嘱管理</span>
             </Menu.Item>
             <Menu.Item key={ROUTE.RECORD_MANAGE.MENU_KEY} style={{display: layoutStyle.recordManageMenuItemDisplay}}>
-              <Icon type="medicine-box" className="menu-item-font"/>
+              <Icon type="file-text" className="menu-item-font"/>
               <span className="nav-text menu-item-font">手术记录管理</span>
             </Menu.Item>
           </Menu>

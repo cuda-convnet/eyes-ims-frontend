@@ -1,6 +1,7 @@
 import './DoctorManage.css'
-import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE} from './../../App/PublicConstant.js'
+import {SERVER, SESSION, RESULT, PAGE_SIZE, ROLE, STYLE, ROUTE} from './../../App/PublicConstant.js'
 import React from 'react';
+import {Link} from 'react-router';
 import {Tabs, Table, message, Popconfirm, BackTop, Button} from 'antd';
 import DoctorEditModal from './DoctorEditModal.js';
 import DoctorSearchForm from './DoctorSearchForm.js';
@@ -267,7 +268,7 @@ class DoctorManage extends React.Component {
       key: 'action',
       render: (record) => (
         <span>
-          <a onClick={() => this.showDoctorEditModal(record)}>查看</a>
+          <Link to={ROUTE.DOCTOR_DETAIL.URL_PREFIX + "/" + ROUTE.DOCTOR_DETAIL.MENU_KEY + "/" + record.id + "/" + record.name}>查看</Link>
           <span className="ant-divider" />
           <a onClick={() => this.showDoctorEditModal(record)}>修改</a>
           {

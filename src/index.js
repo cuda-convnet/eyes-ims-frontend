@@ -11,6 +11,7 @@ import Home from './Home/Home.js';
 import Welcome from './Home/Welcome/Welcome.js';
 import UserManage from './Home/UserManage/UserManage.js';
 import DoctorManage from './Home/DoctorManage/DoctorManage.js';
+import DoctorDetail from './Home/DoctorManage/DoctorDetail.js';
 import SurgeryManage from './Home/SurgeryManage/SurgeryManage.js';
 import RecordManage from './Home/RecordManage/RecordManage.js';
 import {message} from 'antd'
@@ -49,6 +50,7 @@ const certifyAccess = function(nextState, replace){
       case ROUTE.HOME.URL_PREFIX:certifyRole(replace, role, ROUTE.HOME.PERMISSION);break;
       case ROUTE.USER_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.USER_MANAGE.PERMISSION);break;
       case ROUTE.DOCTOR_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.DOCTOR_MANAGE.PERMISSION);break;
+      case ROUTE.DOCTOR_DETAIL.URL_PREFIX:certifyRole(replace, role, ROUTE.DOCTOR_DETAIL.PERMISSION);break;
       case ROUTE.SURGERY_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.SURGERY_MANAGE.PERMISSION);break;
       case ROUTE.RECORD_MANAGE.URL_PREFIX:certifyRole(replace, role, ROUTE.RECORD_MANAGE.PERMISSION);break;
 
@@ -86,6 +88,7 @@ class AppRouter extends React.Component {
                       <IndexRoute component={Welcome} />
                       <Route path={ROUTE.USER_MANAGE.URL} component={UserManage}/>
                       <Route path={ROUTE.DOCTOR_MANAGE.URL} component={DoctorManage}/>
+                      <Route path={ROUTE.DOCTOR_DETAIL.URL} component={DoctorDetail}/>
                       <Route path={ROUTE.SURGERY_MANAGE.URL} component={SurgeryManage}/>
                       <Route path={ROUTE.RECORD_MANAGE.URL} component={RecordManage}/>
                   </Route>
