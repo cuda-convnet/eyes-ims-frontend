@@ -162,7 +162,7 @@ class DoctorManage extends React.Component {
             url : SERVER + '/api/doctor',
             type : 'PUT',
             contentType: 'application/json',
-            data : JSON.stringify({doctorId: this.doctorId, name: values.name, salaryNum: values.salaryNum, level: values.level}),
+            data : JSON.stringify({doctorId: this.doctorId, name: values.name, level: values.level}),
             dataType : 'json',
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
@@ -276,7 +276,7 @@ class DoctorManage extends React.Component {
             ?
             <span>
               <span className="ant-divider" />
-              <Popconfirm title="您确定要删除该医师吗?" onConfirm={() => this.handleDeleteDoctor(record)}>
+              <Popconfirm title="您确定要删除该医师吗?系统会自动删除其关联的账号" onConfirm={() => this.handleDeleteDoctor(record)}>
                 <a className='doctor-table-delete'>删除</a>
               </Popconfirm>
             </span>

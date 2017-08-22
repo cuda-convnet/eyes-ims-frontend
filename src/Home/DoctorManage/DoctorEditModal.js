@@ -26,7 +26,7 @@ class DoctorEditModal_ extends React.Component {
           <FormItem {...formItemLayout} label="工资号">
             {getFieldDecorator('salaryNum', { rules: [{ required: true, message: '请输入工资号' }]
             })(
-            <Input />
+            <Input disabled/>
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="医师级别" hasFeedback={true}>

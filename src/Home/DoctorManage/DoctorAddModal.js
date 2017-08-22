@@ -25,7 +25,7 @@ class DoctorAddModal_ extends React.Component {
             <Input />
             )}
           </FormItem>
-          <FormItem {...formItemLayout} label="工资号" hasFeedback={true}>
+          <FormItem {...formItemLayout} label="工资号/用户名" hasFeedback={true}>
               {getFieldDecorator('salaryNum', { rules: [{ required: true, message: '请输入工资号' }],
               })(
               <Input />
@@ -37,6 +37,9 @@ class DoctorAddModal_ extends React.Component {
                 {DOCTOR_LEVEL.map((level, index) => <Option value={level} key={index}>{level}</Option>)}
               </Select>
             )}
+          </FormItem>
+          <FormItem {...formItemLayoutWithoutLabel}>
+            <Tag color="orange">用户名默认为工资号，初始密码默认为123456</Tag>
           </FormItem>
         </Form>
       </Modal>

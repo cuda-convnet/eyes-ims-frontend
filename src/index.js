@@ -25,7 +25,8 @@ const certifyAccess = function(nextState, replace){
     let role = sessionStorage.getItem(SESSION.ROLE);
 
     //判断有没有token存在
-    if(token == null || role == null) {
+    if(token === null || role === null) {
+
         message.error('请先登录');
         replace({ pathname: ROUTE.LOGIN.URL })
         return false;

@@ -34,6 +34,7 @@ class VerticalLoginForm_ extends React.Component {
                     sessionStorage.setItem(SESSION.NAME, result.content.name);
                     sessionStorage.setItem(SESSION.AVATAR, result.content.avatar);
                     sessionStorage.setItem(SESSION.EXPIRED_TIME, result.content.duration);
+                    sessionStorage.setItem(SESSION.DOCTOR_ID, result.content.doctorId);
 
                     //跳转
                     browserHistory.push(ROUTE.HOME.URL_PREFIX + "/" + ROUTE.HOME.MENU_KEY);
@@ -90,7 +91,7 @@ class VerticalLoginForm_ extends React.Component {
               <Button type="primary" htmlType="submit" className="login-form-button" style={{width:'100%'}}>
                   登&nbsp;&nbsp;录
               </Button>
-              <Link to={ROUTE.REGISTER.URL} style={{float:'right'}}>注册</Link>
+              {/* <Link to={ROUTE.REGISTER.URL} style={{float:'right'}}>注册</Link> */}
           </FormItem>
         </Form>
       </Card>

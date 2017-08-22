@@ -90,14 +90,14 @@ class Home extends React.Component {
 
   handleMenuItemClick = (e) => {
 
-    const userId = sessionStorage.getItem(SESSION.USER_ID);
-    const userName = sessionStorage.getItem(SESSION.NAME);
+    const doctorId = sessionStorage.getItem(SESSION.DOCTOR_ID);
+    const doctorName = sessionStorage.getItem(SESSION.NAME);
     let targetUrl = ROUTE.WELCOME.URL_PREFIX + "/" + ROUTE.WELCOME.MENU_KEY;
     switch(e.key) {
       case ROUTE.WELCOME.MENU_KEY: targetUrl = ROUTE.WELCOME.URL_PREFIX + "/" + ROUTE.WELCOME.MENU_KEY; break;
       case ROUTE.USER_MANAGE.MENU_KEY: targetUrl = ROUTE.USER_MANAGE.URL_PREFIX + "/" + ROUTE.USER_MANAGE.MENU_KEY; break;
       case ROUTE.DOCTOR_MANAGE.MENU_KEY: targetUrl = ROUTE.DOCTOR_MANAGE.URL_PREFIX + "/" + ROUTE.DOCTOR_MANAGE.MENU_KEY; break;
-      case ROUTE.DOCTOR_DETAIL.MENU_KEY: targetUrl = ROUTE.DOCTOR_DETAIL.URL_PREFIX + "/" + ROUTE.DOCTOR_DETAIL.MENU_KEY + "/" + userId + "/" + userName; break;
+      case ROUTE.DOCTOR_DETAIL.MENU_KEY: targetUrl = ROUTE.DOCTOR_DETAIL.URL_PREFIX + "/" + ROUTE.DOCTOR_DETAIL.MENU_KEY + "/" + doctorId + "/" + doctorName; break;
       case ROUTE.SURGERY_MANAGE.MENU_KEY: targetUrl = ROUTE.SURGERY_MANAGE.URL_PREFIX + "/" + ROUTE.SURGERY_MANAGE.MENU_KEY; break;
       case ROUTE.RECORD_MANAGE.MENU_KEY: targetUrl = ROUTE.RECORD_MANAGE.URL_PREFIX + "/" + ROUTE.RECORD_MANAGE.MENU_KEY; break;
       default:;break;

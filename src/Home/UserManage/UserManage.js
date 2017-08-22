@@ -23,7 +23,9 @@ class UserManage extends React.Component {
 
     //职员添加对话框
     userAddModalVisible: false,
-    confirmUserAddModalLoading: false
+    confirmUserAddModalLoading: false,
+
+    roleSelectDisabled: true
   };
 
   //翻页
@@ -125,6 +127,7 @@ class UserManage extends React.Component {
                                                        username: user.username,
                                                        role: user.role});
 
+                this.setState({roleSelectDisabled: user.role === ROLE.EMPLOYEE_DOCTOR ? true : false});
                 return;
             } else {
                 message.error(result.reason, 2);
@@ -268,18 +271,10 @@ class UserManage extends React.Component {
       render: (record) => (
         <span>
           <a onClick={() => this.showUserEditModal(record)}>修改</a>
-          {
-            sessionStorage.getItem(SESSION.ROLE) === ROLE.EMPLOYEE_ADMIN
-            ?
-            <span>
-              <span className="ant-divider" />
-              <Popconfirm title="您确定要删除该用户吗?" onConfirm={() => this.handleDeleteUser(record)}>
-                <a className='user-table-delete'>删除</a>
-              </Popconfirm>
-            </span>
-            :
-            null
-          }
+          <span className="ant-divider" />
+          <Popconfirm title={"您确定要删除该用户吗?" + (record.role === ROLE.EMPLOYEE_DOCTOR ? "系统会自动删除其关联的医师信息" : "" )} onConfirm={() => this.handleDeleteUser(record)}>
+            <a className='user-table-delete'>删除</a>
+          </Popconfirm>
         </span>
       )
     }];
@@ -294,7 +289,7 @@ class UserManage extends React.Component {
               <Table className='user-table' columns={userColumns} dataSource={this.state.userData} pagination={this.state.userPager} onChange={this.changeUserPager} rowKey='id' loading={this.state.userTableLoading}/>
             </TabPane>
           </Tabs>
-          <UserEditModal ref="userEditForm" visible={this.state.userEditModalVisible} confirmLoading={this.state.confirmUserLoading} onCancel={this.closeUserEditModal} onConfirm={this.confirmUserEditModal} />
+          <UserEditModal ref="userEditForm" visible={this.state.userEditModalVisible} confirmLoading={this.state.confirmUserLoading} onCancel={this.closeUserEditModal} onConfirm={this.confirmUserEditModal} roleSelectDisabled={this.state.roleSelectDisabled}/>
           <UserAddModal ref="userAddForm" visible={this.state.userAddModalVisible} confirmLoading={this.state.confirmUserAddModalLoading} onCancel={this.closeUserAddModal} onConfirm={this.confirmUserAddModal} />
         </div>
     );

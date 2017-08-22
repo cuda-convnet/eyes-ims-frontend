@@ -28,10 +28,10 @@ class UserEditModal_ extends React.Component {
           </FormItem>
           <FormItem {...formItemLayout} label="角色级别" hasFeedback={true}>
             {getFieldDecorator('role')(
-              <Select>
+              <Select disabled={this.props.roleSelectDisabled}>
                 <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
                 <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
-                <Option value={ROLE.EMPLOYEE_DOCTOR}>{ROLE.EMPLOYEE_DOCTOR}</Option>
+                <Option value={ROLE.EMPLOYEE_DOCTOR} disabled>{ROLE.EMPLOYEE_DOCTOR}</Option>
               </Select>
             )}
           </FormItem>

@@ -36,7 +36,7 @@ class DoctorDetail extends React.Component {
             url : SERVER + '/api/record/detail',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({doctorId: this.props.params.doctorId,
+            data : JSON.stringify({doctorId: Number(this.props.params.doctorId),
                                    historyNum : values.historyNum,
                                    patientName : values.patientName,
                                    place: values.place,

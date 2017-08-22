@@ -32,16 +32,16 @@ class UserAddModal_ extends React.Component {
               )}
           </FormItem>
           <FormItem {...formItemLayout} label="角色级别" hasFeedback={true}>
-            {getFieldDecorator('role', { rules: [{ required: true, message: '请选择角色'}], initialValue: ROLE.EMPLOYEE_DOCTOR})(
+            {getFieldDecorator('role', { rules: [{ required: true, message: '请选择角色'}], initialValue: ROLE.EMPLOYEE_INPUTER})(
               <Select>
                 <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
                 <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
-                <Option value={ROLE.EMPLOYEE_DOCTOR}>{ROLE.EMPLOYEE_DOCTOR}</Option>
+                <Option value={ROLE.EMPLOYEE_DOCTOR} disabled>{ROLE.EMPLOYEE_DOCTOR}</Option>
               </Select>
             )}
           </FormItem>
           <FormItem {...formItemLayoutWithoutLabel}>
-            <Tag color="orange">默认初始密码为123456</Tag>
+            <Tag color="orange">初始密码默认为123456</Tag>
           </FormItem>
         </Form>
       </Modal>
