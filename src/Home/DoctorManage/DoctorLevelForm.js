@@ -36,6 +36,8 @@ class DoctorLevelForm_ extends React.Component {
               doctorViceHeadLevel: result.content['副主任医师'],
               doctorTreatLevel: result.content['主治医师'],
               doctorResidentLevel: result.content['住院医师'],
+              doctorTrainLevel: result.content['规培医师'],
+              doctorMasterLevel: result.content['研究生']
             });
         }
     });
@@ -66,7 +68,9 @@ class DoctorLevelForm_ extends React.Component {
             data : JSON.stringify({'主任医师': values.doctorHeadLevel,
                                    '副主任医师': values.doctorViceHeadLevel,
                                    '主治医师': values.doctorTreatLevel,
-                                   '住院医师': values.doctorResidentLevel}),
+                                   '住院医师': values.doctorResidentLevel,
+                                   '规培医师': values.doctorTrainLevel,
+                                   '研究生': values.doctorMasterLevel}),
             dataType : 'json',
             beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
             success : (result) => {
@@ -108,25 +112,37 @@ class DoctorLevelForm_ extends React.Component {
         <FormItem {...formItemLayout} label="主任医师">
           {getFieldDecorator('doctorHeadLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="副主任医师">
           {getFieldDecorator('doctorViceHeadLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="主治医师">
           {getFieldDecorator('doctorTreatLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="住院医师">
           {getFieldDecorator('doctorResidentLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="规培医师">
+          {getFieldDecorator('doctorTrainLevel', { rules: [{ required: true, message: '请输入系数' }]
+          })(
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="研究生">
+          {getFieldDecorator('doctorMasterLevel', { rules: [{ required: true, message: '请输入系数' }]
+          })(
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayoutWithoutLabel}>

@@ -31,6 +31,8 @@ class SurgeryLevelForm_ extends React.Component {
             }
 
             this.props.form.setFieldsValue({
+              surgerySeventhLevel: result.content['七级'],
+              surgerySixthLevel: result.content['六级'],
               surgeryFifthLevel: result.content['五级'],
               surgeryForthLevel: result.content['四级'],
               surgeryThirdLevel: result.content['三级'],
@@ -54,7 +56,9 @@ class SurgeryLevelForm_ extends React.Component {
             url : SERVER + '/api/surgery/level',
             type : 'PUT',
             contentType: 'application/json',
-            data : JSON.stringify({ '五级': values.surgeryFifthLevel,
+            data : JSON.stringify({ '七级': values.surgerySeventhLevel,
+                                    '六级': values.surgerySixthLevel,
+                                    '五级': values.surgeryFifthLevel,
                                     '四级': values.surgeryForthLevel,
                                     '三级': values.surgeryThirdLevel,
                                     '二级': values.surgerySecondLevel,
@@ -104,34 +108,46 @@ class SurgeryLevelForm_ extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form className="login-form" style={{marginTop: 20}} onSubmit={this.showUpdateSurgeryLevelNotification}>
+        <FormItem {...formItemLayout} label="七级手术">
+          {getFieldDecorator('surgerySeventhLevel', { rules: [{ required: true, message: '请输入系数' }]
+          })(
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="六级手术">
+          {getFieldDecorator('surgerySixthLevel', { rules: [{ required: true, message: '请输入系数' }]
+          })(
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
+          )}
+        </FormItem>
         <FormItem {...formItemLayout} label="五级手术">
           {getFieldDecorator('surgeryFifthLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="四级手术">
           {getFieldDecorator('surgeryForthLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="三级手术">
           {getFieldDecorator('surgeryThirdLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="二级手术">
           {getFieldDecorator('surgerySecondLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="一级手术">
           {getFieldDecorator('surgeryFirstLevel', { rules: [{ required: true, message: '请输入系数' }]
           })(
-          <InputNumber step={1} min={0} max={99} precision={0} style={{width: '50%'}}/>
+          <InputNumber step={0.5} min={0} max={99} precision={1} style={{width: '50%'}}/>
           )}
         </FormItem>
         <FormItem {...formItemLayoutWithoutLabel}>

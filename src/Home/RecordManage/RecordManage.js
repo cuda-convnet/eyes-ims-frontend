@@ -436,12 +436,12 @@ class RecordManage extends React.Component {
       key: 'surgeries',
       render: (surgeries) => surgeries !== null ? <span>{surgeries.split(',').map((surgery, index) => <span key={index}>{surgery}<br/></span>)}</span> : null
     },{
-      title: role === ROLE.EMPLOYEE_ADMIN ? '术者 / 级别 / 工作量' : '术者 / 级别',
+      title: role === ROLE.EMPLOYEE_ADMIN ? '术者 / 级别 / 工作量' : '术者',
       dataIndex: 'surgeons',
       key: 'surgeons',
       render: (surgeons) => surgeons !== null ? <span>{surgeons.split(',').map((surgeon, index) => <span key={index}>{surgeon}<br/></span>)}</span> : null
     },{
-      title: role === ROLE.EMPLOYEE_ADMIN ? '助手 / 级别 / 工作量' : '助手 / 级别',
+      title: role === ROLE.EMPLOYEE_ADMIN ? '助手 / 级别 / 工作量' : '助手',
       dataIndex: 'helpers',
       key: 'helpers',
       render: (helpers) => helpers !== null ? <span>{helpers.split(',').map((helper, index) => <span key={index}>{helper}<br/></span>)}</span> : null

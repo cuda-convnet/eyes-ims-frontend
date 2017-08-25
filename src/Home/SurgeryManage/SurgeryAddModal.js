@@ -81,7 +81,7 @@ class SurgeryAddModal_ extends React.Component {
           <FormItem {...formItemLayout} label="手术级别" hasFeedback={true}>
             {getFieldDecorator('level', { rules: [{ required: true, message: '请选择手术级别'}], initialValue: SURGERY_LEVEL[0]})(
               <Select>
-                {SURGERY_LEVEL.map((level, index) => <Option value={level} key={index}>{level}</Option>)}
+                {SURGERY_LEVEL.map((level, index) => <Option value={level} key={index}>{level + '（' + this.props.surgeryLevelData[level] + '）'}</Option>)}
               </Select>
             )}
           </FormItem>

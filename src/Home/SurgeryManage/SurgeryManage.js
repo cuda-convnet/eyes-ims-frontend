@@ -25,7 +25,9 @@ class SurgeryManage extends React.Component {
 
     //职员添加对话框
     surgeryAddModalVisible: false,
-    confirmSurgeryAddModalLoading: false
+    confirmSurgeryAddModalLoading: false,
+
+    surgeryLevelData: {}
   };
 
   //翻页
@@ -271,9 +273,33 @@ class SurgeryManage extends React.Component {
     });
   }
 
+  requestSurgeryLevel = () => {
+
+    console.log('拉取手术级别对应的工作量系数');
+
+    $.ajax({
+        url : SERVER + '/api/surgery/level',
+        type : 'GET',
+        dataType : 'json',
+        beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
+        success : (result) => {
+
+            console.log(result);
+            if(result.code !== RESULT.SUCCESS) {
+                message.error(result.reason, 2);
+                return;
+            }
+
+            this.setState({surgeryLevelData: result.content});
+        }
+    });
+  }
+
+
   componentDidMount = () => {
 
     this.handleSearchSurgeryList(1);
+    this.requestSurgeryLevel(); //拉取手术系数供添加/编辑手术医嘱用
   }
 
   render(){
@@ -351,8 +377,8 @@ class SurgeryManage extends React.Component {
               <SurgeryLevelForm />
             </TabPane>
           </Tabs>
-          <SurgeryEditModal ref="surgeryEditForm" visible={this.state.surgeryEditModalVisible} confirmLoading={this.state.confirmSurgeryLoading} onCancel={this.closeSurgeryEditModal} onConfirm={this.confirmSurgeryEditModal}  />
-          <SurgeryAddModal ref="surgeryAddForm" visible={this.state.surgeryAddModalVisible} confirmLoading={this.state.confirmSurgeryAddModalLoading} onCancel={this.closeSurgeryAddModal} onConfirm={this.confirmSurgeryAddModal}  />
+          <SurgeryEditModal ref="surgeryEditForm" visible={this.state.surgeryEditModalVisible} confirmLoading={this.state.confirmSurgeryLoading} onCancel={this.closeSurgeryEditModal} onConfirm={this.confirmSurgeryEditModal}  surgeryLevelData={this.state.surgeryLevelData}/>
+          <SurgeryAddModal ref="surgeryAddForm" visible={this.state.surgeryAddModalVisible} confirmLoading={this.state.confirmSurgeryAddModalLoading} onCancel={this.closeSurgeryAddModal} onConfirm={this.confirmSurgeryAddModal} surgeryLevelData={this.state.surgeryLevelData} />
         </div>
     );
   }
