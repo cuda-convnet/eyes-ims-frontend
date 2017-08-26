@@ -445,6 +445,12 @@ class RecordManage extends React.Component {
       dataIndex: 'helpers',
       key: 'helpers',
       render: (helpers) => helpers !== null ? <span>{helpers.split(',').map((helper, index) => <span key={index}>{helper}<br/></span>)}</span> : null
+    },{
+      title: '录入者',
+      dataIndex: 'inputerName',
+      key: 'inputerName',
+      fixed: 'right',
+      width: 80,
     }, {
       title: '操作',
       key: 'action',

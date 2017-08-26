@@ -15,6 +15,9 @@ class DoctorManage extends React.Component {
 
   state = {
 
+    //当前选中选项卡
+    curTabKey: "1",
+
     //医师相关
     doctorData: [],
     doctorPager: {pageSize: PAGE_SIZE, total: 0, showTotal: (total) => '共 ' + total + ' 条'},
@@ -242,6 +245,12 @@ class DoctorManage extends React.Component {
     });
   }
 
+  changeTabItem = (tabKey) => {
+
+    this.setState({curTabKey: tabKey});
+  }
+
+
   componentDidMount = () => {
 
     this.handleSearchDoctorList(1);
@@ -263,6 +272,10 @@ class DoctorManage extends React.Component {
       title: '医师级别',
       dataIndex: 'level',
       key: 'level',
+    }, {
+      title: '所属医师组',
+      dataIndex: 'group',
+      key: 'group',
     }, {
       title: '操作',
       key: 'action',
@@ -291,12 +304,17 @@ class DoctorManage extends React.Component {
         <div>
           <BackTop visibilityHeight="200"/>
           <Tabs defaultActiveKey={"1"}
-                tabBarExtraContent={<Button type="primary" onClick={this.showDoctorAddModal}>添加医师</Button>}>
+                tabBarExtraContent={this.state.curTabKey === "1" ? <Button type="primary" onClick={this.showDoctorAddModal}>添加医师</Button> : (this.state.curTabKey === "2" ? <Button type="primary" onClick={this.showDoctorAddModal}>添加医师组</Button> : null)}
+                onChange={this.changeTabItem}>
             <TabPane tab="医师管理" key="1">
               <DoctorSearchForm ref="doctorSearchForm" handleSearchDoctorList={this.handleSearchDoctorList}/>
               <Table className='doctor-table' columns={doctorColumns} dataSource={this.state.doctorData} pagination={this.state.doctorPager} onChange={this.changeDoctorPager} rowKey='id' loading={this.state.doctorTableLoading}/>
             </TabPane>
-            <TabPane tab="工作量系数管理" key="2">
+            <TabPane tab="医师组管理" key="2">
+              {/* <DoctorSearchForm ref="doctorSearchForm" handleSearchDoctorList={this.handleSearchDoctorList}/>
+              <Table className='doctor-table' columns={doctorColumns} dataSource={this.state.doctorData} pagination={this.state.doctorPager} onChange={this.changeDoctorPager} rowKey='id' loading={this.state.doctorTableLoading}/> */}
+            </TabPane>
+            <TabPane tab="工作量系数管理" key="3">
               <DoctorLevelForm />
             </TabPane>
           </Tabs>

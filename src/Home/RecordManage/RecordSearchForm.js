@@ -98,6 +98,20 @@ class RecordSearchForm_ extends React.Component {
               )}
             </FormItem>
           </Col>
+          <Col span={6}>
+            <FormItem>
+              {getFieldDecorator('groupName', { initialValue: ''
+              })(
+                <Select>
+                  <Option value="">所有医师组</Option>
+                  <Option value="医师组1">医师组1</Option>
+                  <Option value="医师组2">医师组2</Option>
+                  <Option value="医师组3">医师组3</Option>
+                  <Option value="医师组4">医师组4</Option>
+                </Select>
+              )}
+            </FormItem>
+          </Col>
         </Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
