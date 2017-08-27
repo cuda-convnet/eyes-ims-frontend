@@ -16,6 +16,7 @@ class DoctorAddModal_ extends React.Component {
     const formItemLayoutWithoutLabel = {wrapperCol: { xs: { span: 24 , offset: 0}, sm: { span: 12 , offset: 7},}};
 
     const { getFieldDecorator } = this.props.form;
+    const { doctorGroupAllData } = this.props;
     return (
       <Modal title="添加医师" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
@@ -35,6 +36,14 @@ class DoctorAddModal_ extends React.Component {
             {getFieldDecorator('level', { rules: [{ required: true, message: '请选择医师级别'}], initialValue: DOCTOR_LEVEL[0]})(
               <Select>
                 {DOCTOR_LEVEL.map((level, index) => <Option value={level} key={index}>{level}</Option>)}
+              </Select>
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="所属医师组" hasFeedback={true}>
+            {getFieldDecorator('doctorGroupId', { rules: [{ required: true, message: '请选择医师组'}], initialValue: doctorGroupAllData.length <= 0 ? '' : doctorGroupAllData[0].name
+            })(
+              <Select>
+                {doctorGroupAllData.map((doctorGroup, index) => <Option value={doctorGroup.id.toString()} key={index}>{doctorGroup.name}</Option>)}
               </Select>
             )}
           </FormItem>

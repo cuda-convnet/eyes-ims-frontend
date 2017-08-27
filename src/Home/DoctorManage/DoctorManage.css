@@ -1,5 +1,11 @@
-.doctor-table{
+.doctor-table, .doctor-table-center{
   margin-top: 20px;
+}
+
+.doctor-table-center {
+  margin: auto 0;
+  width: 60%;
+  margin: 0 auto;
 }
 
 .doctor-table-delete{

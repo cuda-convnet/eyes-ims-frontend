@@ -49,10 +49,10 @@ class UserSearchForm_ extends React.Component {
           <Col span={8}>
             <FormItem>
               {getFieldDecorator('role', {
-                initialValue: '全部'
+                initialValue: '所有角色'
               })(
                 <Select>
-                  <Option value="">全部</Option>
+                  <Option value="">所有角色</Option>
                   <Option value={ROLE.EMPLOYEE_ADMIN}>{ROLE.EMPLOYEE_ADMIN}</Option>
                   <Option value={ROLE.EMPLOYEE_INPUTER}>{ROLE.EMPLOYEE_INPUTER}</Option>
                   <Option value={ROLE.EMPLOYEE_DOCTOR}>{ROLE.EMPLOYEE_DOCTOR}</Option>

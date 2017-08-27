@@ -46,7 +46,7 @@ class UserManage extends React.Component {
             contentType: 'application/json',
             data : JSON.stringify({username: values.username,
                                    name : values.name,
-                                   role : values.role === "全部" ? "" : values.role,
+                                   role : values.role === "所有角色" ? "" : values.role,
                                    pageNow: pageNow,
                                    pageSize: PAGE_SIZE}),
             dataType : 'json',

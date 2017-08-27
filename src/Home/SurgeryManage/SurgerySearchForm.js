@@ -56,10 +56,10 @@ class SurgerySearchForm_ extends React.Component {
           <Col span={6}>
             <FormItem>
               {getFieldDecorator('level', {
-                initialValue: '全部'
+                initialValue: '所有手术级别'
               })(
                 <Select>
-                  <Option value="">全部</Option>
+                  <Option value="">所有手术级别</Option>
                   {SURGERY_LEVEL.map((level, index) => <Option value={level} key={index}>{level}</Option>)}
                 </Select>
               )}

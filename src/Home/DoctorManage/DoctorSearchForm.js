@@ -32,28 +32,40 @@ class DoctorSearchForm_ extends React.Component {
         onSubmit={this.handleSearch}
       >
         <Row gutter={20}>
-          <Col span={8}>
+          <Col span={6}>
             <FormItem>
               {getFieldDecorator('name')(
                 <Input placeholder="姓名" />
               )}
             </FormItem>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <FormItem>
               {getFieldDecorator('salaryNum')(
                 <Input placeholder="工资号" />
               )}
             </FormItem>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <FormItem>
               {getFieldDecorator('level', {
-                initialValue: '全部'
+                initialValue: '所有医师级别'
               })(
                 <Select>
-                  <Option value="">全部</Option>
+                  <Option value="">所有医师级别</Option>
                   {DOCTOR_LEVEL.map((level, index) => <Option value={level} key={index}>{level}</Option>)}
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+          <Col span={6}>
+            <FormItem>
+              {getFieldDecorator('doctorGroupId', {
+                initialValue: '所有医师组'
+              })(
+                <Select>
+                  <Option value="">所有医师组</Option>
+                  {this.props.doctorGroupAllData.map((doctorGroup, index) => <Option value={doctorGroup.id.toString()} key={index}>{doctorGroup.name}</Option>)}
                 </Select>
               )}
             </FormItem>

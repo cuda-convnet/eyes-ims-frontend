@@ -25,7 +25,10 @@ class RecordManage extends React.Component {
 
     //职员添加对话框
     recordAddModalVisible: false,
-    confirmRecordAddModalLoading: false
+    confirmRecordAddModalLoading: false,
+
+    //医师组
+    doctorGroupAllData: []
   };
 
   //翻页
@@ -382,9 +385,34 @@ class RecordManage extends React.Component {
     });
   }
 
+  //查询所有医师组
+  requestAllDoctorGroups = () => {
+
+    console.log('查询所有医师组');
+    $.ajax({
+        url : SERVER + '/api/doctor_group/list',
+        type : 'GET',
+        dataType : 'json',
+        beforeSend: (request) => request.setRequestHeader(SESSION.TOKEN, sessionStorage.getItem(SESSION.TOKEN)),
+        success : (result) => {
+
+            console.log(result);
+            if(result.code === RESULT.SUCCESS) {
+
+                this.setState({doctorGroupAllData: result.content});
+                return;
+            } else {
+                message.error(result.reason, 2);
+                return;
+            }
+        }
+    });
+  }
+
   componentDidMount = () => {
 
     this.handleSearchRecordList(1);
+    this.requestAllDoctorGroups();
   }
 
   render(){
@@ -481,7 +509,7 @@ class RecordManage extends React.Component {
           <Tabs defaultActiveKey={"1"}
                 tabBarExtraContent={<Button type="primary" onClick={this.showRecordAddModal}>添加手术记录</Button>}>
             <TabPane tab="手术记录管理" key="1">
-              <RecordSearchForm ref="recordSearchForm" handleSearchRecordList={this.handleSearchRecordList} handleExportRecordList={this.handleExportRecordList}/>
+              <RecordSearchForm ref="recordSearchForm" handleSearchRecordList={this.handleSearchRecordList} handleExportRecordList={this.handleExportRecordList} doctorGroupAllData={this.state.doctorGroupAllData}/>
               <Table scroll={{ x: '160%'}} className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
             </TabPane>
           </Tabs>

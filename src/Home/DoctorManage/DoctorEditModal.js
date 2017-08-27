@@ -14,6 +14,7 @@ class DoctorEditModal_ extends React.Component {
 
 
     const { getFieldDecorator } = this.props.form;
+    const { doctorGroupAllData } = this.props;
     return (
       <Modal title="修改医师信息" visible={this.props.visible} onOk={this.props.onConfirm} confirmLoading={this.props.confirmLoading} onCancel={this.props.onCancel}>
         <Form className="login-form">
@@ -34,6 +35,14 @@ class DoctorEditModal_ extends React.Component {
             })(
               <Select>
                 {DOCTOR_LEVEL.map((level, index) => <Option value={level} key={index}>{level}</Option>)}
+              </Select>
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="所属医师组" hasFeedback={true}>
+            {getFieldDecorator('doctorGroupId', { rules: [{ required: true, message: '请选择医师组'}], initialValue: doctorGroupAllData.length <= 0 ? '' : doctorGroupAllData[0].name
+            })(
+              <Select>
+                {doctorGroupAllData.map((doctorGroup, index) => <Option value={doctorGroup.id.toString()} key={index}>{doctorGroup.name}</Option>)}
               </Select>
             )}
           </FormItem>

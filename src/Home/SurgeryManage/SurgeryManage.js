@@ -49,7 +49,7 @@ class SurgeryManage extends React.Component {
             data : JSON.stringify({code: values.code,
                                    name : values.name,
                                    alias : values.alias,
-                                   level : values.level === '全部' ? '' : values.level,
+                                   level : values.level === '所有手术级别' ? '' : values.level,
                                    pageNow: pageNow,
                                    pageSize: PAGE_SIZE}),
             dataType : 'json',
