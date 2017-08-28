@@ -512,7 +512,7 @@ class RecordManage extends React.Component {
                 tabBarExtraContent={<Button type="primary" onClick={this.showRecordAddModal}>添加手术记录</Button>}>
             <TabPane tab="手术记录管理" key="1">
               <RecordSearchForm ref="recordSearchForm" handleSearchRecordList={this.handleSearchRecordList} handleExportRecordList={this.handleExportRecordList} doctorGroupAllData={this.state.doctorGroupAllData}/>
-              <Table scroll={{ x: '160%'}} className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
+              <Table scroll={{ x: '190%'}} className='record-table' columns={recordColumns} dataSource={this.state.recordData} pagination={this.state.recordPager} onChange={this.changeRecordPager} rowKey='id' loading={this.state.recordTableLoading}/>
             </TabPane>
           </Tabs>
           <RecordEditModal ref="recordEditForm" visible={this.state.recordEditModalVisible} confirmLoading={this.state.confirmRecordLoading} onCancel={this.closeRecordEditModal} onConfirm={this.confirmRecordEditModal}  />
