@@ -100,12 +100,12 @@ class RecordSearchForm_ extends React.Component {
           </Col>
           <Col span={6}>
             <FormItem>
-              {getFieldDecorator('doctorGroupId', {
+              {getFieldDecorator('doctorGroupName', {
                 initialValue: '所有医师组'
               })(
                 <Select>
                   <Option value="">所有医师组</Option>
-                  {this.props.doctorGroupAllData.map((doctorGroup, index) => <Option value={doctorGroup.id.toString()} key={index}>{doctorGroup.name}</Option>)}
+                  {this.props.doctorGroupAllData.map((doctorGroup, index) => <Option value={doctorGroup.name} key={index}>{doctorGroup.name}</Option>)}
                 </Select>
               )}
             </FormItem>
