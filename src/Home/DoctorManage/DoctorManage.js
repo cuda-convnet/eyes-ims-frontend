@@ -56,7 +56,7 @@ class DoctorManage extends React.Component {
             url : SERVER + '/api/doctor/list',
             type : 'POST',
             contentType: 'application/json',
-            data : JSON.stringify({name: values.name,
+            data : JSON.stringify({name: values.name === undefined ? '' : values.name.label,
                                    salaryNum : values.salaryNum,
                                    level : values.level === "所有医师级别" ? "" : values.level,
                                    doctorGroupId: values.doctorGroupId === "所有医师组" ? "" : values.doctorGroupId,

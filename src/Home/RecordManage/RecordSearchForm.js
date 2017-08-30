@@ -1,6 +1,7 @@
 import React from 'react';
 import {ROLE, SESSION} from './../../App/PublicConstant.js';
 import { Form, Row, Col, Input, Button, Select, DatePicker} from 'antd';
+import RemoteSingleSelect from './RemoteSingleSelect.js';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const {RangePicker} = DatePicker;
@@ -61,7 +62,20 @@ class RecordSearchForm_ extends React.Component {
               )}
             </FormItem>
           </Col>
-          <Col span={6}>
+          <Col span={3}>
+            <FormItem>
+              {getFieldDecorator('type', { initialValue: ''
+              })(
+                <Select>
+                  <Option value="">所有类型</Option>
+                  <Option value="门诊">门诊</Option>
+                  <Option value="住院">住院</Option>
+                  <Option value="一日病房">一日病房</Option>
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+          <Col span={3}>
             <FormItem>
               {getFieldDecorator('place', { initialValue: ''
               })(
@@ -79,23 +93,17 @@ class RecordSearchForm_ extends React.Component {
         <Row gutter={10}>
           <Col span={6}>
             <FormItem>
-              {getFieldDecorator('surgeryName')(
-                <Input placeholder="手术名称" />
-              )}
+              <RemoteSingleSelect form={this.props.form} fieldName="surgeryName" dataType="surgery" placeholder="手术名称"/>
             </FormItem>
           </Col>
           <Col span={6}>
             <FormItem>
-              {getFieldDecorator('surgeonName')(
-                <Input placeholder="术者姓名" />
-              )}
+              <RemoteSingleSelect form={this.props.form} fieldName="surgeonName" dataType="doctor" placeholder="术者名称"/>
             </FormItem>
           </Col>
           <Col span={6}>
             <FormItem>
-              {getFieldDecorator('helperName')(
-                <Input placeholder="助手姓名" />
-              )}
+              <RemoteSingleSelect form={this.props.form} fieldName="helperName" dataType="doctor" placeholder="助手名称"/>
             </FormItem>
           </Col>
           <Col span={6}>

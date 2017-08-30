@@ -61,7 +61,20 @@ class DoctorDetailSearchForm_ extends React.Component {
               )}
             </FormItem>
           </Col>
-          <Col span={6}>
+          <Col span={3}>
+            <FormItem>
+              {getFieldDecorator('type', { initialValue: ''
+              })(
+                <Select>
+                  <Option value="">所有类型</Option>
+                  <Option value="门诊">门诊</Option>
+                  <Option value="住院">住院</Option>
+                  <Option value="一日病房">一日病房</Option>
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+          <Col span={3}>
             <FormItem>
               {getFieldDecorator('place', { initialValue: ''
               })(

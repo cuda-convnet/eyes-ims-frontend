@@ -39,6 +39,7 @@ class DoctorDetail extends React.Component {
             data : JSON.stringify({doctorId: Number(this.props.params.doctorId),
                                    historyNum : values.historyNum,
                                    patientName : values.patientName,
+                                   type: values.type,
                                    place: values.place,
                                    beginTime: values.date !== undefined ? formatDate(values.date[0]) : undefined,
                                    endTime: values.date !== undefined ? formatDate(values.date[1]) : undefined,
@@ -88,6 +89,7 @@ class DoctorDetail extends React.Component {
             data : JSON.stringify({doctorId: this.props.params.doctorId,
                                    historyNum : values.historyNum,
                                    patientName : values.patientName,
+                                   type: values.type,
                                    place: values.place,
                                    beginTime: values.date !== undefined ? formatDate(values.date[0]) : undefined,
                                    endTime: values.date !== undefined ? formatDate(values.date[1]) : undefined}),
@@ -125,6 +127,7 @@ class DoctorDetail extends React.Component {
             data : JSON.stringify({doctorId: this.props.params.doctorId,
                                    historyNum : values.historyNum,
                                    patientName : values.patientName,
+                                   type: values.type,
                                    place: values.place,
                                    beginTime: values.date !== undefined ? formatDate(values.date[0]) : undefined,
                                    endTime: values.date !== undefined ? formatDate(values.date[1]) : undefined}),
@@ -160,19 +163,26 @@ class DoctorDetail extends React.Component {
 
 
     const role = sessionStorage.getItem(SESSION.ROLE);
-    //doctorDetail表头//////////
+
+    //record表头//////////
     const doctorDetailColumns = [{
       title: '病历号',
       dataIndex: 'historyNum',
-      key: 'historyNum'
+      key: 'historyNum',
+      fixed: 'left',
+      width: 90
     },{
       title: '类型',
       dataIndex: 'type',
-      key: 'type'
+      key: 'type',
+      fixed: 'left',
+      width: 50
     },{
       title: '姓名',
       dataIndex: 'name',
-      key: 'name'
+      key: 'name',
+      fixed: 'left',
+      width: 60
     },{
       title: '性别',
       dataIndex: 'sex',
@@ -194,17 +204,32 @@ class DoctorDetail extends React.Component {
       dataIndex: 'date',
       key: 'date',
       render: (date) => formatDate(date)
-    },
-    role === ROLE.EMPLOYEE_ADMIN
-    ?
-    {
-      title: '本场工作量',
-      dataIndex: 'doctorScore',
-      key: 'doctorScore',
-      render: (doctorScore) => doctorScore + ' 分'
-    }
-    :
-    {}];
+    },{
+      title: '所做手术 / 级别 / 价格',
+      dataIndex: 'surgeries',
+      key: 'surgeries',
+      render: (surgeries) => surgeries !== null ? <span>{surgeries.split(',').map((surgery, index) => <span key={index}>{surgery}<br/></span>)}</span> : null
+    },{
+      title: role === ROLE.EMPLOYEE_ADMIN ? '术者 / 级别 / 医师组 / 工作量' : '术者 / 医师组',
+      dataIndex: 'surgeons',
+      key: 'surgeons',
+      render: (surgeons) => surgeons !== null ? <span>{surgeons.split(',').map((surgeon, index) => <span key={index}>{surgeon}<br/></span>)}</span> : null
+    },{
+      title: role === ROLE.EMPLOYEE_ADMIN ? '助手 / 级别 / 医师组 / 工作量' : '助手 / 医师组',
+      dataIndex: 'helpers',
+      key: 'helpers',
+      render: (helpers) => helpers !== null ? <span>{helpers.split(',').map((helper, index) => <span key={index}>{helper}<br/></span>)}</span> : null
+    },{
+      title: '录入者',
+      dataIndex: 'inputerName',
+      key: 'inputerName',
+      fixed: 'right',
+      width: 80,
+    }];
+
+
+
+
 
     return (
       <div>
@@ -223,7 +248,7 @@ class DoctorDetail extends React.Component {
 
         <DoctorDetailSearchForm ref="doctorDetailSearchForm" handleSearchDoctorDetailList={this.handleSearchDoctorDetailList} handleExportDoctorDetailList={this.handleExportDoctorDetailList} />
         {role === ROLE.EMPLOYEE_ADMIN ? <Badge count={'累计工作量: ' + this.state.totalScore + ' 分'} style={{backgroundColor: '#f78e3d', marginTop: 20}}/> : null }
-        <Table className='doctor-table' columns={doctorDetailColumns} dataSource={this.state.doctorDetailData} pagination={this.state.doctorDetailPager} onChange={this.changeDoctorDetailPager} rowKey='id' loading={this.state.doctorDetailTableLoading}/>
+        <Table className='doctor-table' scroll={{ x: '190%'}} columns={doctorDetailColumns} dataSource={this.state.doctorDetailData} pagination={this.state.doctorDetailPager} onChange={this.changeDoctorDetailPager} rowKey='id' loading={this.state.doctorDetailTableLoading}/>
       </div>
     );
   }

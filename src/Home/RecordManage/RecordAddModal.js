@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {ROLE, SESSION, DATE_FORMAT} from './../../App/PublicConstant.js';
 import {REGEX} from './../../App/PublicRegex.js';
-import RemoteSelect from './RemoteSelect.js';
+import RemoteMultipleSelect from './RemoteMultipleSelect.js';
 import { Form, Input, Select,Modal, Tag, Cascader, InputNumber, Row, Col, DatePicker, Radio} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -101,15 +101,15 @@ class RecordAddModal_ extends React.Component {
           <h3 className="record-header">详细信息</h3>
 
           <FormItem {...formItemLayoutOfRemoteSelect} label="手术" hasFeedback={true}>
-              <RemoteSelect form={this.props.form} fieldName="surgeries" dataType="surgery"/>
+              <RemoteMultipleSelect form={this.props.form} fieldName="surgeries" dataType="surgery"/>
           </FormItem>
 
           <FormItem {...formItemLayoutOfRemoteSelect} label="术者" hasFeedback={true}>
-              <RemoteSelect form={this.props.form} fieldName="surgeons" dataType="doctor"/>
+              <RemoteMultipleSelect form={this.props.form} fieldName="surgeons" dataType="doctor"/>
           </FormItem>
 
           <FormItem {...formItemLayoutOfRemoteSelect} label="助手" hasFeedback={true}>
-              <RemoteSelect form={this.props.form} fieldName="helpers" dataType="doctor"/>
+              <RemoteMultipleSelect form={this.props.form} fieldName="helpers" dataType="doctor"/>
           </FormItem>
 
         </Form>

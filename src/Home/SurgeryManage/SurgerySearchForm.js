@@ -1,6 +1,7 @@
 import React from 'react';
 import {ROLE, SURGERY_LEVEL} from './../../App/PublicConstant.js';
 import { Form, Row, Col, Input, Button, Select} from 'antd';
+import RemoteSingleSelect from './../RecordManage/RemoteSingleSelect.js';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -41,9 +42,7 @@ class SurgerySearchForm_ extends React.Component {
           </Col>
           <Col span={6}>
             <FormItem>
-              {getFieldDecorator('name')(
-                <Input placeholder="医嘱名称" />
-              )}
+              <RemoteSingleSelect form={this.props.form} fieldName="name" dataType="surgery" placeholder="医嘱名称"/>
             </FormItem>
           </Col>
           <Col span={6}>

@@ -47,7 +47,7 @@ class SurgeryManage extends React.Component {
             type : 'POST',
             contentType: 'application/json',
             data : JSON.stringify({code: values.code,
-                                   name : values.name,
+                                   name : values.name === undefined ? '' : values.name.label,
                                    alias : values.alias,
                                    level : values.level === '所有手术级别' ? '' : values.level,
                                    pageNow: pageNow,
