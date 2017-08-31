@@ -36,7 +36,7 @@ const ROUTE = {
     DOCTOR_MANAGE: {URL:'/doctor_manage/:menuKey', URL_PREFIX:'/doctor_manage', MENU_KEY: '3', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
     DOCTOR_DETAIL: {URL:'/doctor_detail/:menuKey/:doctorId/:doctorName', URL_PREFIX:'/doctor_detail', MENU_KEY: '6', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_DOCTOR]},
     SURGERY_MANAGE: {URL:'/surgery_manage/:menuKey', URL_PREFIX:'/surgery_manage', MENU_KEY: '4', PERMISSION: [ROLE.EMPLOYEE_ADMIN]},
-    RECORD_MANAGE: {URL:'/record_manage/:menuKey', URL_PREFIX:'/record_manage', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_INPUTER, ROLE.EMPLOYEE_DOCTOR]}
+    RECORD_MANAGE: {URL:'/record_manage/:menuKey', URL_PREFIX:'/record_manage', MENU_KEY: '5', PERMISSION: [ROLE.EMPLOYEE_ADMIN, ROLE.EMPLOYEE_INPUTER]}
 }
 
 //医师级别
@@ -53,9 +53,9 @@ const DOCTOR_LEVEL = [
   '二级主治医师',
   '三级主治医师',
 
-  '一级医师',
-  '二级医师',
-  '三级医师',
+  '一级住院医师',
+  '二级住院医师',
+  '三级住院医师',
 
   '规培医师',
   '研究生',

@@ -54,7 +54,7 @@ class RecordEditModal_ extends React.Component {
           </FormItem>
 
           <FormItem {...formItemLayout} label="病历号" hasFeedback={true}>
-              {getFieldDecorator('historyNum', { rules: [{ required: true, message: '请输入病历号' },{pattern: REGEX.NUMBER10, message:'病历号由10位数字组成'}],
+              {getFieldDecorator('historyNum', { rules: [{ required: true, message: '请输入病历号' },{pattern: REGEX.NUMBER10, message:'病历号由6-10位数字或字母组成'}],
               })(
               <Input />
               )}

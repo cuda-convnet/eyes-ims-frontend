@@ -62,7 +62,7 @@ class Home extends React.Component {
     //主色调、用户管理、检查项目、原始资料、化验/医技数据、健康管理
     if(role === ROLE.EMPLOYEE_ADMIN) layoutStyle = this.getLayoutStyle(COLOR.RED, STYLE.BLOCK, STYLE.BLOCK, STYLE.NONE, STYLE.BLOCK, STYLE.BLOCK);
     else if(role === ROLE.EMPLOYEE_INPUTER) layoutStyle = this.getLayoutStyle(COLOR.ORANGE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.BLOCK);
-    else if(role === ROLE.EMPLOYEE_DOCTOR) layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.BLOCK, STYLE.NONE, STYLE.BLOCK);
+    else if(role === ROLE.EMPLOYEE_DOCTOR) layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.BLOCK, STYLE.NONE, STYLE.NONE);
     else layoutStyle = this.getLayoutStyle(COLOR.GREEN, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE, STYLE.NONE);
 
     return layoutStyle;
