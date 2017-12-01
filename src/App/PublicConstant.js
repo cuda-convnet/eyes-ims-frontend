@@ -1,11 +1,11 @@
 
 //服务器地址
-//const SERVER = 'http://localhost:8080' //yaochenkun
-const SERVER = 'http://192.168.118.131:8080' //lab
+const SERVER = 'http://localhost:8080' //yaochenkun
+//const SERVER = 'http://192.168.36.19:8080' //lab
 
 //文件服务器地址
-//const FILE_SERVER = 'http://localhost:8088' //yaochenkun
-const FILE_SERVER = 'http://192.168.118.131:8088' //lab
+const FILE_SERVER = 'http://localhost:8088' //yaochenkun
+//const FILE_SERVER = 'http://192.168.36.19:8088' //lab
 
 
 
