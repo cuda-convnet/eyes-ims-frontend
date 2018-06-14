@@ -22,11 +22,11 @@ class IndexHeader extends React.Component{
     //     }
     // });
     $.ajax({
-        url : 'http://localhost:8080/restapi/nlp/v1/word_seg1',
+        url : 'http://localhost:8080/restapi/nlp/v1/word_pos',
         type : 'POST',
         contentType: 'application/json',
         dataType : 'json',
-        data : JSON.stringify({text1: '我的梦想是当个科学家'}),
+        data : JSON.stringify({text: '我的梦想是当个科学家'}),
         beforeSend: (request) => request.setRequestHeader("ACCESS_TOKEN", "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNTExNzY1NTM1LCJzdWIiOiIxLzQwZmUwZGYyODNhYTU1ZjgyMGIyOWJkNy90ZXh0X2tleXdvcmRzLHdvcmRfcG9zLHdvcmRfc2VnIiwiaXNzIjoiYWlvcF9wbGF0Zm9ybSIsImV4cCI6MTUxNDM1NzUzNX0.q4wHo72SYPInXEDLXtGRwIeqGQdqXoWNOXxSJ5Fxlqs"),
         success : (result) => {
             console.log(result);
